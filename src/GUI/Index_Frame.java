@@ -3,21 +3,21 @@ package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Pannel.Buts_Pannel;
+import Pannel.Buts_Panel;
 
 public class Index_Frame extends Base_Frame {
 	private int level=0;
 	private boolean logining=false;
-	private String[] cons= {"로그인","로그아웃","직원관리","고객관리","상품판매","상품주문","상품관리","종료"};
-	private Buts_Pannel bp;
+	private String[] cons= {"로그인","로그아웃","상품판매","상품주문","직원관리","고객관리","상품관리","종료"};
+	private Buts_Panel bp;
 	private String user;
 	public Index_Frame() {
 		super("index", 250, 600);
 		// TODO Auto-generated constructor stub
 		
-		bp=new Buts_Pannel(8,1,250,600,cons);
+		bp=new Buts_Panel(8,1,250,600,cons);
 		
-		this.setContentPane(bp);
+		this.setMainPanel(bp);
 		this.ButtonOn();
 		this.setVisible(true);
 	}
@@ -69,7 +69,6 @@ public class Index_Frame extends Base_Frame {
 	// 5레벨 이상 모든 기능 사용 가능 (물품 정보 수정, 판매자 삭제)
 	public void ButtonOn() {
 		if (level==0 || logining==false) {
-			System.out.println("버튼온작동시작");
 			bp.buts[0][0].setEnabled(true);
 		}
 		

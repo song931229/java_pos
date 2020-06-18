@@ -45,7 +45,7 @@ public class Find_Id_Frame extends Base_Frame {
 		jp_up.setBounds(10, 10, 240, 150);
 		jp_down.setBounds(70, 170, 150, 30);
 		
-		this.setContentPane(jp_base);
+		this.setMainPanel(jp_base);
 		this.setVisible(true);
 	}
 

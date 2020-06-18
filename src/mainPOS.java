@@ -1,13 +1,19 @@
 
 
 import GUI.*;
-import Pannel.Buts_Pannel;
+import Pannel.Buts_Panel;
 
 public class mainPOS {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.println("실행함");
-		Find_Pw_Frame fif=new Find_Pw_Frame();
+		
+		Index_Frame test=new Index_Frame();
+//		Login_Frame test=new Login_Frame();
+//		Find_Id_Frame test=new Find_Id_Frame();
+//		Seller_Frame test=new Seller_Frame();
+//		Buyer_Frame test=new Buyer_Frame();
+//		Product_Frame test=new Product_Frame();
 	}
 }

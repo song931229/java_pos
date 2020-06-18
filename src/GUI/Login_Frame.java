@@ -55,8 +55,8 @@ public class Login_Frame extends Base_Frame {
 		jp_up.setBounds(20,10,250,100);
 		jp_down.setBounds(20,120,250,30);
 		
-		this.setContentPane(jp_base);
-		this.setVisible(true);
+		setMainPanel(jp_base);
+		setVisible(true);
 	}
 	
 

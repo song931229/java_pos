@@ -5,13 +5,13 @@ import Pannel.*;
 
 public class Seller_Frame extends Base_Frame {
 	private Buts_Panel bp;
+	private String[] contents= {"직원 등록","직원 목록","직원 찾기","종료"};
+	
 	public Seller_Frame() {
 		super("직원 관리", 200, 500);
 		// TODO Auto-generated constructor stub
 
-		String[] contents= {"직원 등록","직원 목록","직원 찾기","종료"};
-		bp=new Buts_Panel(4,1,contents);
-		
+		bp=new Buts_Panel(4,1,contents,true);
 		this.setMainPanel(bp);
 		this.ButtonOn();
 		this.setVisible(true);

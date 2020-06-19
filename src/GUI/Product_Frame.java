@@ -5,12 +5,13 @@ import Pannel.*;
 
 public class Product_Frame extends Base_Frame {
 	private Buts_Panel bp;
+	private String[] contents= {"상품 등록","상품 목록","상품 찾기","종료"};
+	
 	public Product_Frame() {
 		super("상품 관리", 200, 500);
 		// TODO Auto-generated constructor stub
 
-		String[] contents= {"상품 등록","상품 목록","상품 찾기","종료"};
-		bp=new Buts_Panel(4,1,contents);
+		bp=new Buts_Panel(4,1,contents,true);
 		
 		this.setMainPanel(bp);
 		this.ButtonOn();

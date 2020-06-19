@@ -6,31 +6,24 @@ import java.awt.event.ActionListener;
 import Pannel.Buts_Panel;
 
 public class Index_Frame extends Base_Frame {
+	
+	//싱글톤 객체에 ㄱㄱ
 	private int level=0;
 	private boolean logining=false;
 	private String[] cons= {"로그인","로그아웃","상품판매","상품주문","직원관리","고객관리","상품관리","종료"};
 	private Buts_Panel bp;
 	private String user;
+	
 	public Index_Frame() {
 		super("index", 250, 600);
 		// TODO Auto-generated constructor stub
 		
-		bp=new Buts_Panel(8,1,250,600,cons);
+		bp=new Buts_Panel(8,1,cons,false);
 		
 		this.setMainPanel(bp);
 		this.ButtonOn();
 		this.setVisible(true);
 	}
-//	public Index_Frame(int level,boolean logining) {
-//		super("index", 250, 600);
-//		// TODO Auto-generated constructor stub
-//		this.setLevel(level);
-//		this.setLogining(logining);
-//		bp=new Buts_Pannel(8,1,250,600,cons);
-//		this.setContentPane(bp);
-//		this.ButtonOn();
-//		this.setVisible(true);
-//	}
 	
 	public int getLevel() {
 		return level;

@@ -10,8 +10,7 @@ public class Buyer_Frame extends Base_Frame {
 		// TODO Auto-generated constructor stub
 
 		String[] contents= {"고객 등록","고객 목록","고객 찾기","종료"};
-		bp=new Buts_Panel(4,1,contents);
-		
+		bp=new Buts_Panel(4,1,contents,true);
 		this.setMainPanel(bp);
 		this.ButtonOn();
 		this.setVisible(true);

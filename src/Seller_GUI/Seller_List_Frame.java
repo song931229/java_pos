@@ -1,4 +1,4 @@
-package GUI;
+package Seller_GUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,6 +10,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
+import Index_GUI.Base_Frame;
 import Pannel.Buts_Panel;
 import Pannel.MYPanel;
 import Pannel.SearchBar;
@@ -25,7 +26,7 @@ public class Seller_List_Frame extends Base_Frame {
 	
 	MYPanel list= new MYPanel();
 	
-	String[] sbar_S= {"이름","전화","생년","ID","가입일"};
+	String[] sbar_S= {"이름","전화","생년","ID","Lv","가입일"};
 	SearchBar sbar = new SearchBar(sbar_S);
 	
 	String[] bp_S= {"<","1","2","3",">"};
@@ -54,7 +55,5 @@ public class Seller_List_Frame extends Base_Frame {
 		this.setMainPanel(base);;
 		this.setVisible(true);
 	}
-	
-	
 
 }

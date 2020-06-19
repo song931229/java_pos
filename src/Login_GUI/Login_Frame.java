@@ -1,7 +1,9 @@
-package GUI;
+package Login_GUI;
 
 import java.awt.*;
 import javax.swing.*;
+
+import Index_GUI.Base_Frame;
 import Pannel.*;
 
 public class Login_Frame extends Base_Frame {

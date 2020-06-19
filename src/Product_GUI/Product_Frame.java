@@ -1,6 +1,8 @@
-package GUI;
+package Product_GUI;
 
 import javax.swing.JPanel;
+
+import Index_GUI.Base_Frame;
 import Pannel.*;
 
 public class Product_Frame extends Base_Frame {

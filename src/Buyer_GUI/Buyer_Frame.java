@@ -1,6 +1,8 @@
-package GUI;
+package Buyer_GUI;
 
 import javax.swing.JPanel;
+
+import Index_GUI.Base_Frame;
 import Pannel.*;
 
 public class Buyer_Frame extends Base_Frame {

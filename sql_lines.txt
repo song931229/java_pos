@@ -10,10 +10,13 @@
 
 "select id from seller where id='admin'"
 
-"insert into seller values('{}','{}','{}','{}','{}',{},{},{},'{}')".format('admin', '000-0000-0000', '999999', 'admin', '123', 0, 0, 6,joindate))
+"insert into seller values('{}','{}','{}','{}','{}',{},{},{},'{}')"
+.format('admin', '000-0000-0000', '999999', 'admin', '123', 0, 0, 6,joindate))
 
-"insert into seller values('{}','{}','{}','{}','{}',{},{},{},'{}')".format('asd', '000-0000-0001', '000000', 'asd', '123', 0, 0, 6, joindate))
+"insert into seller values('{}','{}','{}','{}','{}',{},{},{},'{}')"
+.format('asd', '000-0000-0001', '000000', 'asd', '123', 0, 0, 6, joindate))
 
-"insert into seller values('{}','{}','{}','{}','{}',{},{},{},'{}')".format('aaa', '000-0000-0002', '111111', 'aaa', '123', 0, 0, 1, joindate))
+"insert into seller values('{}','{}','{}','{}','{}',{},{},{},'{}')"
+.format('aaa', '000-0000-0002', '111111', 'aaa', '123', 0, 0, 1, joindate))
 
 "select * from seller"

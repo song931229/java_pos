@@ -1,0 +1,55 @@
+create table seller(
+sno number primary key,
+name varchar2(10),
+tel varchar2(20) unique,
+birth varchar2(20),
+id varchar2(10) unique,
+pw varchar2(10),
+c_cash number,
+n_cash number,
+lv number,
+joindate varchar(20));
+
+create table buyer(
+bno number primary key,
+name varchar2(10),
+tel varchar2(20) unique,
+birth varchar(10),
+point number,
+lv number,
+joindate varchar(20));
+
+create table product(
+pno number primary key,
+name varchar2(20) unique,
+company varchar(10),
+orderprice number,
+sellprice number,
+pqty number,
+barcode varchar(20) unique);
+
+create table sell_log(
+sellno number primary key,
+sno number,
+pno number,
+pqty number,
+price number,
+bno number,
+selldate char(20));
+
+create table buy_log(
+buyno number primary key,
+sno number,
+pno number,
+pqty number,
+price number,
+orderdate char(20));
+
+select id from seller where id='admin'
+
+
+
+
+
+
+

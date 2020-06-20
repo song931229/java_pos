@@ -1,6 +1,7 @@
-package DATA;
+package Server_DATA;
 
 import java.sql.*;
+import java.util.Arrays;
 
 public class PosDAO {
 	private Connection con;
@@ -20,8 +21,8 @@ public class PosDAO {
 		pass = "a1234";
 	}
 	
-	public boolean check() throws SQLException {
-		String sql = "select * from tab";
+	public void check_admin() throws SQLException {
+		String sql = "select id from seller";
 		try {
 			
 			con = DriverManager.getConnection(url, user, pass);
@@ -29,13 +30,26 @@ public class PosDAO {
 			rs = ps.executeQuery();
 			
 			if (rs==null) {
-				return false;
-			}else {
-				while(rs.next()) {
-					rs.next();
-				}
+				
 			}
-			return false;
+			System.out.println("admin check");
+		}finally {
+			if (rs != null) rs.close();
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
+	
+	public int create_admin() throws SQLException {
+		String sql = "insert into seller values(?,?,?,?,?,?)";
+		try {
+			
+			con = DriverManager.getConnection(url, user, pass);
+			ps = con.prepareStatement(sql);
+//			ps.setStirng(1,);
+			
+			return ps.executeUpdate();
+
 		}finally {
 			if (rs != null) rs.close();
 			if (ps != null) ps.close();

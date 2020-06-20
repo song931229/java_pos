@@ -3,10 +3,10 @@
 import java.sql.SQLException;
 
 import Buyer_GUI.*;
-import DATA.*;
 import Index_GUI.*;
 import Pannel.*;
 import Seller_GUI.*;
+import Server_DATA.*;
 
 public class mainPOS {
 
@@ -15,14 +15,14 @@ public class mainPOS {
 		
 		System.out.println("실행함");
 		PosDAO pdao= new PosDAO();
-		boolean a=true;
 		try {
-			a=pdao.check();
+			pdao.check_admin();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(a);
+		System.out.println("시작");
+		
 //		Index_Frame test=new Index_Frame();
 //		Login_Frame test=new Login_Frame();
 //		Find_Id_Frame test=new Find_Id_Frame();

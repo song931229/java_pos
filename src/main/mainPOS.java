@@ -1,3 +1,4 @@
+package main;
 
 
 import java.sql.SQLException;
@@ -26,8 +27,7 @@ public class mainPOS {
 		
 		System.out.println("시작");
 		
-		Index_Frame test=new Index_Frame();
-		test.setVisible(true);
+//		Index_Frame test=new Index_Frame();
 //		Login_Frame test=new Login_Frame();
 //		Find_Id_Frame test=new Find_Id_Frame();
 //		Seller_Frame test=new Seller_Frame();

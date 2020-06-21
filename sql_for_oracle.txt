@@ -50,6 +50,9 @@ select id from seller where id='admin'
 
 
 
-
-
+create sequence seq_buyer;
+create sequence seq_seller;
+create sequence seq_sell_log;
+create sequence seq_buy_log;
+create sequence seq_product;
 

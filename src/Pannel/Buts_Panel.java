@@ -6,21 +6,23 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import Index_GUI.MYButton;
+
 public class Buts_Panel extends JPanel {
-	public JButton[][] buts;
+	public MYButton[][] buts;
 	
 	public Buts_Panel(int m, int n,String[] contents,Boolean OnOff){
-		buts= new JButton[m][n];
+		buts= new MYButton[m][n];
 		GridLayout gl = new GridLayout(m,n);
 		this.setLayout(gl);
 		int count=0;
 		for (int i = 0; i < m; i++) {
 			for (int j=0; j<n; j++) {
-				buts[i][j]=new JButton(contents[count]);
+				buts[i][j]=new MYButton(contents[count],0,i);
 				
 				buts[i][j].addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JButton a=(JButton) e.getSource();
+						JButton a= (JButton)e.getSource();
 						
 					}
 				});

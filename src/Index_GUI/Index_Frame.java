@@ -22,7 +22,6 @@ public class Index_Frame extends Base_Frame {
 		
 		this.setMainPanel(bp);
 		this.ButtonOn();
-		this.setVisible(true);
 	}
 	
 	public int getLevel() {

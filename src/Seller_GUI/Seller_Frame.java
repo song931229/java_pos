@@ -16,7 +16,6 @@ public class Seller_Frame extends Base_Frame {
 		bp=new Buts_Panel(4,1,contents,true);
 		this.setMainPanel(bp);
 		this.ButtonOn();
-		this.setVisible(true);
 	}
 	
 	public void ButtonOn() {

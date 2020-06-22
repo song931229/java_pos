@@ -18,15 +18,15 @@ public class Find_Pw_Frame extends Base_Frame {
 	JLabel lb_name = new JLabel("이름",JLabel.CENTER);
 	JLabel lb_tel = new JLabel("전화",JLabel.CENTER);
 	JLabel lb_birth = new JLabel("생년",JLabel.CENTER);
-	JLabel lb_id = new JLabel("이름",JLabel.CENTER);
+	JLabel lb_id = new JLabel("ID",JLabel.CENTER);
 	
 	public JTextField jtf_name= new JTextField();
 	public NumberField jtf_tel= new NumberField();
 	public NumberField jtf_birth= new NumberField();
 	public JTextField jtf_id= new JTextField();
 
-	MYButton bt_ok=new MYButton("찾기",1,2,1);
-	MYButton bt_cc=new MYButton("취소",1,2,2);
+	MYButton bt_f=new MYButton("찾기",1,2,1);
+	MYButton bt_c=new MYButton("취소",1,2,2);
 	
 	public Find_Pw_Frame() {
 		super("Find Id", 300, 300);
@@ -43,8 +43,8 @@ public class Find_Pw_Frame extends Base_Frame {
 		jp_up.add(jtf_id);
 
 		jp_down.setGridLayout(1,2,10,10);
-		jp_down.add(bt_ok);
-		jp_down.add(bt_cc);
+		jp_down.add(bt_f);
+		jp_down.add(bt_c);
 		
 		jp_base.setLayout(null);
 		jp_base.add(jp_up);

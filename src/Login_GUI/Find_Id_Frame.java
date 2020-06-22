@@ -21,8 +21,8 @@ public class Find_Id_Frame extends Base_Frame {
 	public NumberField jtf_tel= new NumberField();
 	public NumberField jtf_birth= new NumberField();
 
-	MYButton bt_up=new MYButton("찾기",1,1,1);
-	MYButton bt_del=new MYButton("취소",1,1,2);
+	MYButton bt_f=new MYButton("찾기",1,1,1);
+	MYButton bt_c=new MYButton("취소",1,1,2);
 	
 	public Find_Id_Frame() {
 		super("Find Id", 300, 250);
@@ -38,8 +38,8 @@ public class Find_Id_Frame extends Base_Frame {
 		
 
 		jp_down.setGridLayout(1,2,10,10);
-		jp_down.add(bt_up);
-		jp_down.add(bt_del);
+		jp_down.add(bt_f);
+		jp_down.add(bt_c);
 		
 		jp_base.setLayout(null);
 		jp_base.add(jp_up);

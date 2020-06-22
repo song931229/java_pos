@@ -103,5 +103,20 @@ public class SellerDAO extends BaseDAO {
 			if (con != null) con.close();
 		}
 	}
+
+	public int changePW(String change_pw1,String id) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "update seller set pw=? where id=?";
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			ps = con.prepareStatement(sql);
+			ps.setString(1,change_pw1);
+			ps.setString(2,id);
+			return  ps.executeUpdate();
+		}finally {
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
 	
 }

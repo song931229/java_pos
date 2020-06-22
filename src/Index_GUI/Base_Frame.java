@@ -1,6 +1,7 @@
 package Index_GUI;
-
 import java.awt.*;
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.*;
 import Pannel.MYPanel;
 
@@ -43,6 +44,5 @@ public class Base_Frame extends JFrame{
 		base.add(main,BorderLayout.CENTER);
 		setContentPane(base);
 	}
-	
 
 }

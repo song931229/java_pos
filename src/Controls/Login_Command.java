@@ -2,10 +2,61 @@ package Controls;
 
 import java.sql.SQLException;
 
+import Index_GUI.*;
+import Login_GUI.*;
 import Server_DATA.SellerDAO;
 
 public class Login_Command {
-	Command_Center cc;
+	private Command_Center cc;
+	
+	public void command(int butno) throws SQLException {
+		cc=Command_Center.getInstance();
+		switch(butno) {
+		case 0:
+			String typed_id=cc.login_frame.jtf_id.getText();
+			char[] typed_pw_char=cc.login_frame.jtf_pw.getPassword();
+			String typed_pw="";
+			for (int i =0; i<typed_pw_char.length; i++) {
+				typed_pw+=typed_pw_char[i];
+			}
+			if (typed_id.equals("")) {
+				cc.popup("유효성 검사", "아이디를 입력해 주세요.");
+				break;
+			}
+			if (typed_pw.equals("")) {
+				cc.popup("유효성 검사", "비밀번호를 입력해 주세요.");
+				break;
+			}
+			cc.login_frame.jtf_pw.setText("");
+			int returnd=cc.sellerDAO.isCollect(typed_id, typed_pw);
+			if (returnd==1) {
+				cc.popup("성공", "로그인 성공");
+				cc.user = cc.sellerDAO.getSeller(typed_id);
+				cc.login_frame.setVisible(false);
+				cc.login_frame=null;
+				cc.index_frame=new Index_Frame(cc.user);
+			}else if(returnd==0) {
+				cc.popup("실패", "비밀번호 확인");
+			}else if(returnd==-1) {
+				cc.popup("실패", "로그인ID 확인");
+			}
+			break;
+		case 1:
+			cc.login_frame.setVisible(false);
+			cc.find_id_frame = new Find_Id_Frame();
+			break;
+		case 2:
+			cc.login_frame.setVisible(false);
+			cc.find_pw_frame = new Find_Pw_Frame();
+			break;
+		case 3:
+			cc.login_frame.setVisible(false);
+			cc.login_frame=null;
+			cc.index_frame.setVisible(true);
+			break;
+		}
+	}
+	
 	public void subcommand(int subframe,int butno) throws SQLException {
 		cc=Command_Center.getInstance();
 		// TODO Auto-generated method stub
@@ -83,9 +134,9 @@ public class Login_Command {
 					cc.popup("실패", "정보와 일치하는 값을 찾을 수 없습니다.");
 				}else {
 					//cc.비밀번호재설정.
-					cc.find_id_frame.setVisible(false);
-					cc.find_id_frame=null;
-					cc.login_frame.setVisible(true);
+					cc.find_pw_frame.setVisible(false);
+					cc.find_pw_frame=null;
+					cc.change_pw_frame=new Change_Pw_Frame(typed_id);
 				}
 				break;
 			case 2:
@@ -94,6 +145,43 @@ public class Login_Command {
 				cc.find_pw_frame=null;
 				cc.login_frame.setVisible(true);
 				break;
+			}
+			break;
+		case 3:
+			switch(butno) {
+			case 1:
+				char[] change_pw1_chars=cc.change_pw_frame.jtf_pw1.getPassword();
+				char[] change_pw2_chars=cc.change_pw_frame.jtf_pw2.getPassword();
+				String change_pw1="";
+				String change_pw2="";
+				for (int i=0; i<change_pw1_chars.length; i++) {
+					change_pw1+=change_pw1_chars[i];
+				}
+				for (int i=0; i<change_pw2_chars.length; i++) {
+					change_pw2+=change_pw1_chars[i];
+				}
+				if (change_pw1.equals("")) {
+					cc.popup("유효성 검사", "변경할 비밀 번호를 입력해 주세요.");
+					break;
+				}else if(change_pw2.equals("")){
+					cc.popup("유효성 검사", "비밀 번호 확인을 입력해 주세요.");
+					break;
+				}else if(!change_pw1.equals(change_pw2)) {
+					cc.popup("유효성 검사", "비밀번호가 일치하지 않습니다.");
+					break;
+				}
+				int result=cc.sellerDAO.changePW(change_pw1, cc.change_pw_frame.getTarget_Id());
+				if (result==1) {
+					cc.popup("성공", "비밀번호가 성공적으로 변경 되었습니다.");
+					cc.change_pw_frame.setVisible(false);
+					cc.change_pw_frame=null;
+					cc.login_frame.setVisible(true);
+				}
+				break;
+			case 2:
+				cc.change_pw_frame.setVisible(false);
+				cc.change_pw_frame=null;
+				cc.login_frame.setVisible(true);
 			}
 			break;
 		}

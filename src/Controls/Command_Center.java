@@ -19,6 +19,7 @@ public class Command_Center {
 	protected Login_Frame login_frame;
 	protected Find_Id_Frame find_id_frame;
 	protected Find_Pw_Frame find_pw_frame;
+	protected Change_Pw_Frame change_pw_frame;
 	//2 로그아웃 버튼
 	
 	//3 물품 구매 프레임
@@ -51,20 +52,22 @@ public class Command_Center {
 		private static final Command_Center Instance = new Command_Center();
 	}
 	
-	
 
 	public SellerDAO getSellerDAO() {
 		return sellerDAO;
 	}
 
+	
 	public void setSellerDAO(SellerDAO sellerDAO) {
 		this.sellerDAO = sellerDAO;
 	}
 
+	
 	public void start() {
 		index_frame = new Index_Frame();
 	}
 
+	
 	public void command(int frame, int butno) throws SQLException {
 		System.out.println(Integer.toString(frame)+","+Integer.toString(butno));
 		switch(frame) {
@@ -72,7 +75,7 @@ public class Command_Center {
 			command_to_index(butno);
 			break;
 		case 1:
-			command_to_login(butno);
+			login_command.command(butno);
 			break;
 		}
 	}
@@ -113,18 +116,21 @@ public class Command_Center {
 			System.out.println("상품 주문 프레임");
 			break;
 		case 5:
+			index_frame.setVisible(false);
 			if(seller_frame==null) {
 				seller_frame= new Seller_Frame();
 			}
 			seller_frame.setVisible(true);
 			break;
 		case 6:
+			index_frame.setVisible(false);
 			if(buyer_frame==null) {
 				buyer_frame= new Buyer_Frame();
 			}
 			buyer_frame.setVisible(true);
 			break;
 		case 7:
+			index_frame.setVisible(false);
 			if(product_frame==null) {
 				product_frame= new Product_Frame();
 			}
@@ -136,55 +142,5 @@ public class Command_Center {
 			System.exit(0);
 		}
 	}
-	
-	//1 로그인 프레임에 전달
-	private void command_to_login(int butno) throws SQLException {
-		switch(butno) {
-		case 0:
-			String typed_id=login_frame.jtf_id.getText();
-			char[] typed_pw_char=login_frame.jtf_pw.getPassword();
-			String typed_pw="";
-			for (int i =0; i<typed_pw_char.length; i++) {
-				typed_pw+=typed_pw_char[i];
-			}
-			if (typed_id.equals("")) {
-				this.popup("유효성 검사", "아이디를 입력해 주세요.");
-				break;
-			}
-			if (typed_pw.equals("")) {
-				this.popup("유효성 검사", "비밀번호를 입력해 주세요.");
-				break;
-			}
-			login_frame.jtf_pw.setText("");
-			int returnd=sellerDAO.isCollect(typed_id, typed_pw);
-			if (returnd==1) {
-				this.popup("성공", "로그인 성공");
-				user = sellerDAO.getSeller(typed_id);
-				login_frame.setVisible(false);
-				login_frame=null;
-				index_frame=new Index_Frame(user);
-			}else if(returnd==0) {
-				this.popup("실패", "비밀번호 확인");
-			}else if(returnd==-1) {
-				this.popup("실패", "로그인ID 확인");
-			}
-			break;
-		case 1:
-			login_frame.setVisible(false);
-			find_id_frame = new Find_Id_Frame();
-			break;
-		case 2:
-			login_frame.setVisible(false);
-			find_pw_frame = new Find_Pw_Frame();
-			break;
-		case 3:
-			login_frame.setVisible(false);
-			login_frame=null;
-			index_frame.setVisible(true);
-		}
-	}
-
-
-	
 	
 }

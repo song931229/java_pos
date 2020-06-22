@@ -7,13 +7,13 @@ import Pannel.*;
 
 public class Seller_Frame extends Base_Frame {
 	private Buts_Panel bp;
-	private String[] contents= {"직원 등록","직원 목록","직원 찾기","종료"};
+	private String[] contents= {"직원 등록","직원 목록","종료"};
 	
 	public Seller_Frame() {
-		super("직원 관리", 200, 500);
+		super("직원 관리", 200, 300);
 		// TODO Auto-generated constructor stub
 
-		bp=new Buts_Panel(4,1,5,contents,true);
+		bp=new Buts_Panel(3,1,5,contents,true);
 		this.setMainPanel(bp);
 		this.ButtonOn();
 	}

@@ -8,11 +8,11 @@ import Pannel.*;
 public class Buyer_Frame extends Base_Frame {
 	private Buts_Panel bp;
 	public Buyer_Frame() {
-		super("고객 관리", 200, 500);
+		super("고객 관리", 200, 300);
 		// TODO Auto-generated constructor stub
 
-		String[] contents= {"고객 등록","고객 목록","고객 찾기","종료"};
-		bp=new Buts_Panel(4,1,6,contents,true);
+		String[] contents= {"고객 등록","고객 목록","종료"};
+		bp=new Buts_Panel(3,1,6,contents,true);
 		this.setMainPanel(bp);
 		this.ButtonOn();
 		this.setVisible(true);

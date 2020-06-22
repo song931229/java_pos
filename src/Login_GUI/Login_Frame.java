@@ -4,30 +4,32 @@ import java.awt.*;
 import javax.swing.*;
 
 import Index_GUI.Base_Frame;
+import Index_GUI.MYButton;
 import Pannel.*;
 
 public class Login_Frame extends Base_Frame {
 
+	MYPanel jp_base= new MYPanel();
+	MYPanel jp_up= new MYPanel();
+	MYPanel jp_up_l= new MYPanel();
+	MYPanel jp_up_r= new MYPanel();
+	MYPanel jp_up_c= new MYPanel();
+	MYPanel jp_down= new MYPanel();
+	
+	JLabel lb_id = new JLabel("ID : ",JLabel.RIGHT);
+	JLabel lb_pw = new JLabel("PW : ",JLabel.RIGHT);
+	
+	public JTextField jtf_id= new JTextField();
+	public JPasswordField jtf_pw= new JPasswordField();
+	
+	MYButton login = new MYButton("로그인",1,0);
+	MYButton F_id = new MYButton("ID찾기",1,1);
+	MYButton F_pw = new MYButton("PW찾기",1,2);
+	MYButton cancel = new MYButton("취소",1,3);
+	
 	public Login_Frame() {
 		super("Login", 300, 200);
 		// TODO Auto-generated constructor stub
-		MYPanel jp_base= new MYPanel();
-		MYPanel jp_up= new MYPanel();
-		MYPanel jp_up_l= new MYPanel();
-		MYPanel jp_up_r= new MYPanel();
-		MYPanel jp_up_c= new MYPanel();
-		MYPanel jp_down= new MYPanel();
-		
-		JLabel lb_id = new JLabel("ID : ",JLabel.RIGHT);
-		JLabel lb_pw = new JLabel("PW : ",JLabel.RIGHT);
-		
-		JTextField jtf_id= new JTextField();
-		JTextField jtf_pw= new JTextField();
-		
-		JButton login = new JButton("로그인");
-		JButton F_id = new JButton("ID찾기");
-		JButton F_pw = new JButton("PW찾기");
-		JButton cancel = new JButton("취소");
 		
 		jp_up_l.setGridLayout(2,1,10,10);
 		jp_up_l.add(lb_id);
@@ -35,6 +37,7 @@ public class Login_Frame extends Base_Frame {
 		
 		jp_up_c.setGridLayout(2,1,10,10);
 		jp_up_c.add(jtf_id);
+		jtf_pw.setEchoChar('*');
 		jp_up_c.add(jtf_pw);
 		
 		jp_up_r.setGridLayout(1,1);
@@ -48,7 +51,7 @@ public class Login_Frame extends Base_Frame {
 		jp_down.setGridLayout(1, 3);
 		jp_down.add(F_id);
 		jp_down.add(F_pw);
-		jp_down.add(cancel);
+		jp_down.add(cancel);	
 		
 		jp_base.setLayout(null);
 		

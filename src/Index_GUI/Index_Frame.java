@@ -3,47 +3,37 @@ package Index_GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Controls.Command_Center;
 import Pannel.Buts_Panel;
+import Server_DATA.SellerDTO;
 
 public class Index_Frame extends Base_Frame {
 	
 	//싱글톤 객체에 ㄱㄱ
-	private int level=0;
-	private boolean logining=false;
 	private String[] cons= {"로그인","로그아웃","상품판매","상품주문","직원관리","고객관리","상품관리","종료"};
 	private Buts_Panel bp;
-	private String user;
+	
+	private SellerDTO user;
 	
 	public Index_Frame() {
 		super("index", 250, 600);
 		// TODO Auto-generated constructor stub
 		
-		bp=new Buts_Panel(8,1,cons,false);
+		bp=new Buts_Panel(8,1,0,cons,false);
 		
 		this.setMainPanel(bp);
 		this.ButtonOn();
 	}
 	
-	public int getLevel() {
-		return level;
-	}
-	public void setLevel(int level) {
-		this.level = level;
-	}
-	public boolean isLogining() {
-		return logining;
-	}
-	public void setLogining(boolean logining) {
-		this.logining = logining;
+	public Index_Frame(SellerDTO user) {
+		super("index", 250, 600);
+		// TODO Auto-generated constructor stub
+		this.user=user;
+		bp=new Buts_Panel(8,1,0,cons,false);
+		this.setMainPanel(bp);
+		this.ButtonOn();
 	}
 	
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
-	}
 	
 	// 상황에 맞는 버튼 활성화
 	// 0 로그인	0
@@ -60,27 +50,26 @@ public class Index_Frame extends Base_Frame {
 	// 4레벨 이상 물품 주문 가능
 	// 5레벨 이상 모든 기능 사용 가능 (물품 정보 수정, 판매자 삭제)
 	public void ButtonOn() {
-		if (level==0 || logining==false) {
+		if (user==null||user.getLv()==0) {
 			bp.buts[0][0].setEnabled(true);
 		}
 		
-		if (logining==true && level>0) {
+		if (user!=null && user.getLv()>0) {
 			bp.buts[1][0].setEnabled(true);
 			bp.buts[3][0].setEnabled(true);
 			bp.buts[4][0].setEnabled(true);
 			bp.buts[6][0].setEnabled(true);
-			if (level>2) {
+			if (user.getLv()>2) {
 				bp.buts[2][0].setEnabled(true);
 			}
-			if (level>3) {
+			if (user.getLv()>3) {
 				bp.buts[5][0].setEnabled(true);
 			}
-			if (level>4) {
+			if (user.getLv()>4) {
 				bp.buts[5][0].setEnabled(true);
 			}
 		}
-		
-		
+
 		bp.buts[7][0].setEnabled(true);
 	}
 	

@@ -2,18 +2,41 @@ package Index_GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 
-import main.Control_Center;
+import Controls.Command_Center;
 
 public class MYButton extends JButton {
-	Control_Center aa=Control_Center.getInstance();
+	Command_Center aa=Command_Center.getInstance();
+	
 	public MYButton(String con,int frame, int butno){
 		super(con);
 		this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				aa.command(frame, butno);
+				try {
+					aa.command(frame, butno);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 	}
+	
+	public MYButton(String con,int frame,int subframe, int butno){
+		super(con);
+		this.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					aa.subcommand(frame,subframe, butno);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+	}
+	
 }

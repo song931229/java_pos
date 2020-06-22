@@ -13,7 +13,7 @@ public class Seller_Frame extends Base_Frame {
 		super("직원 관리", 200, 500);
 		// TODO Auto-generated constructor stub
 
-		bp=new Buts_Panel(4,1,contents,true);
+		bp=new Buts_Panel(4,1,5,contents,true);
 		this.setMainPanel(bp);
 		this.ButtonOn();
 	}

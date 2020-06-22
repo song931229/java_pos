@@ -4,6 +4,7 @@ package main;
 import java.sql.SQLException;
 
 import Buyer_GUI.*;
+import Controls.Command_Center;
 import Index_GUI.*;
 import Pannel.*;
 import Seller_GUI.*;
@@ -26,6 +27,8 @@ public class mainPOS {
 		}
 		
 		System.out.println("시작");
+		Command_Center start=Command_Center.getInstance();
+		start.start();
 		
 //		Index_Frame test=new Index_Frame();
 //		Login_Frame test=new Login_Frame();

@@ -3,23 +3,7 @@ package Server_DATA;
 import java.sql.*;
 import java.util.Arrays;
 
-public class PosDAO {
-	private Connection con;
-	private PreparedStatement ps;
-	private ResultSet rs;
-	
-	private String url, user, pass;
-	
-	public PosDAO() {
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-		}catch(ClassNotFoundException e) {
-			System.err.println("오라클 드라이버 검색 실패!!");
-		}
-		url = "jdbc:oracle:thin:@localhost:1521:xe";
-		user = "bigdata";
-		pass = "a1234";
-	}
+public class PosDAO extends BaseDAO{
 	
 	public void check_admin() throws SQLException {
 		String sql = "select id from seller where id=?";

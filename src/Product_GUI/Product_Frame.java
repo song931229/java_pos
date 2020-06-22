@@ -13,7 +13,7 @@ public class Product_Frame extends Base_Frame {
 		super("상품 관리", 200, 500);
 		// TODO Auto-generated constructor stub
 
-		bp=new Buts_Panel(4,1,contents,true);
+		bp=new Buts_Panel(4,1,7,contents,true);
 		
 		this.setMainPanel(bp);
 		this.ButtonOn();

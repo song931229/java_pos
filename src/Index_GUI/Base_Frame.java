@@ -18,6 +18,7 @@ public class Base_Frame extends JFrame{
 		setResizable(false);
 		base.setBorderLayout();
 		setContentPane(base);
+		setVisible(true);
 	}
 	
 	public Base_Frame(String title, int x, int y) {
@@ -31,6 +32,7 @@ public class Base_Frame extends JFrame{
 		setResizable(false);
 		base.setBorderLayout();
 		setTitlePanel(lb_title);
+		setVisible(true);
 	}
 	
 	public void setTitlePanel(JLabel title) {

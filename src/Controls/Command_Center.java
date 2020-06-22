@@ -40,6 +40,7 @@ public class Command_Center {
 	protected SellerDAO sellerDAO=new SellerDAO();
 	
 	protected Login_Command login_command=new Login_Command();
+	protected Seller_Command seller_command=new Seller_Command();
 	
 	private Command_Center(){}
 	
@@ -56,13 +57,11 @@ public class Command_Center {
 	public SellerDAO getSellerDAO() {
 		return sellerDAO;
 	}
-
 	
-	public void setSellerDAO(SellerDAO sellerDAO) {
-		this.sellerDAO = sellerDAO;
+	public SellerDTO getUser() {
+		return user;
 	}
 
-	
 	public void start() {
 		index_frame = new Index_Frame();
 	}
@@ -77,6 +76,21 @@ public class Command_Center {
 		case 1:
 			login_command.command(butno);
 			break;
+		case 3:
+			System.out.println("상품판매 커맨드");
+			break;
+		case 4:
+			System.out.println("상품주문 커맨드");
+			break;
+		case 5:
+			seller_command.command(butno);
+			break;
+		case 6:
+			System.out.println("고객관리 커맨드");
+			break;
+		case 7:
+			System.out.println("상품관리 커맨드");
+			break;
 		}
 	}
 	
@@ -86,6 +100,8 @@ public class Command_Center {
 		case 1:
 			login_command.subcommand(subframe, butno);
 			break;
+		case 5:
+			seller_command.subcommand(subframe, butno);
 		}
 	}
 	

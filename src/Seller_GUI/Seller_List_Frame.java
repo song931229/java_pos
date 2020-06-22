@@ -30,7 +30,7 @@ public class Seller_List_Frame extends Base_Frame {
 	SearchBar sbar = new SearchBar(sbar_S);
 	
 	String[] bp_S= {"<","1","2","3",">"};
-	Buts_Panel bp1= new Buts_Panel(1,5,bp_S,false);
+	Buts_Panel bp1= new Buts_Panel(1,5,2,bp_S,false);
 
 	DefaultTableModel m = (DefaultTableModel)table.getModel();
 	

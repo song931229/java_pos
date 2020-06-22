@@ -12,7 +12,6 @@ public class SellerDTO {
 	private int lv=1;
 	private String joindate;
 	public SellerDTO() {
-		
 	}
 	
 	public SellerDTO(String name, String tel, String birth,String id, String pw, int c_cash, int n_cash, String joindate) {

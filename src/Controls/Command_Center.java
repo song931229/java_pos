@@ -66,15 +66,31 @@ public class Command_Center {
 		index_frame = new Index_Frame();
 	}
 
+	public void popup(String title, String con) {
+		JOptionPane.showMessageDialog(null, con, title, JOptionPane.WARNING_MESSAGE);
+	}
 	
-	public void command(int frame, int butno) throws SQLException {
-		System.out.println(Integer.toString(frame)+","+Integer.toString(butno));
+	public String diup(String title, String con) {
+		return JOptionPane.showInputDialog(null, con,title,JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	public void command(int frame, int subframe , int butno) throws SQLException {
+		System.out.println(Integer.toString(frame)+"-"+Integer.toString(subframe)+"-"+Integer.toString(butno));
 		switch(frame) {
 		case 0:
-			command_to_index(butno);
+			if(subframe==0) {
+				command_to_index(butno);
+			}else {
+				System.out.println("0-?-?");
+			}
+			
 			break;
 		case 1:
-			login_command.command(butno);
+			if(subframe==0) {
+				login_command.command(butno);
+			}else {
+				login_command.subcommand(subframe, butno);
+			}
 			break;
 		case 3:
 			System.out.println("상품판매 커맨드");
@@ -83,7 +99,11 @@ public class Command_Center {
 			System.out.println("상품주문 커맨드");
 			break;
 		case 5:
-			seller_command.command(butno);
+			if(subframe==0) {
+				seller_command.command(butno);
+			}else {
+				seller_command.subcommand(subframe, butno);
+			}
 			break;
 		case 6:
 			System.out.println("고객관리 커맨드");
@@ -93,37 +113,21 @@ public class Command_Center {
 			break;
 		}
 	}
-	
-	public void subcommand(int frame, int subframe, int butno) throws SQLException {
-		// TODO Auto-generated method stub
-		switch(frame) {
-		case 1:
-			login_command.subcommand(subframe, butno);
-			break;
-		case 5:
-			seller_command.subcommand(subframe, butno);
-		}
-	}
-	
-	public void popup(String title, String con) {
-		JOptionPane.showMessageDialog(null, con, title, JOptionPane.WARNING_MESSAGE);
-	}
+
 	
 	//0 인덱스 프레임으로 명령 전달.
 	private void command_to_index(int butno) {
 		switch(butno) {
 		case 1:
 			index_frame.setVisible(false);
-			if(login_frame==null) {
-				System.out.println("로그 null이라 생성");
-				login_frame= new Login_Frame();
-			}
+			index_frame=null;
+			login_frame=new Login_Frame();
 			break;
 		case 2:
 			user=null;
 			index_frame.setVisible(false);
 			index_frame=null;
-			index_frame= new Index_Frame();
+			index_frame=new Index_Frame();
 			break;
 		case 3:
 			System.out.println("상품 판매 프레임");
@@ -133,23 +137,17 @@ public class Command_Center {
 			break;
 		case 5:
 			index_frame.setVisible(false);
-			if(seller_frame==null) {
-				seller_frame= new Seller_Frame();
-			}
+			seller_frame= new Seller_Frame();
 			seller_frame.setVisible(true);
 			break;
 		case 6:
 			index_frame.setVisible(false);
-			if(buyer_frame==null) {
-				buyer_frame= new Buyer_Frame();
-			}
+			buyer_frame= new Buyer_Frame();
 			buyer_frame.setVisible(true);
 			break;
 		case 7:
 			index_frame.setVisible(false);
-			if(product_frame==null) {
-				product_frame= new Product_Frame();
-			}
+			product_frame= new Product_Frame();
 			product_frame.setVisible(true);
 			break;
 		case 8:

@@ -35,7 +35,7 @@ public class Seller_Sign_Frame extends Base_Frame {
 	MYButton bt_ok=new MYButton("등록",5,1,1);
 	MYButton bt_cc=new MYButton("취소",5,1,2);
 	
-	public Seller_Sign_Frame() {
+	public Seller_Sign_Frame(String tel) {
 		super("직원 등록", 300, 430);
 		// TODO Auto-generated constructor stub
 		
@@ -45,6 +45,8 @@ public class Seller_Sign_Frame extends Base_Frame {
 		jp_up.add(jtf_name);
 		
 		jp_up.add(lb_tel);
+		jtf_tel.setText(tel);
+		jtf_tel.setEditable(false);
 		jp_up.add(jtf_tel);
 		
 		jp_up.add(lb_birth);

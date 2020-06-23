@@ -17,16 +17,8 @@ public class Index_Frame extends Base_Frame {
 		super("index", 250, 600);
 		// TODO Auto-generated constructor stub
 		
-		bp=new Buts_Panel(8,1,0,cons,false);
+		bp=new Buts_Panel(false,8,0,0,cons,false);
 		
-		this.setMainPanel(bp);
-		this.ButtonOn();
-	}
-	
-	public Index_Frame(SellerDTO user) {
-		super("index", 250, 600);
-		// TODO Auto-generated constructor stub
-		bp=new Buts_Panel(8,1,0,cons,false);
 		this.setMainPanel(bp);
 		this.ButtonOn();
 	}
@@ -48,26 +40,26 @@ public class Index_Frame extends Base_Frame {
 	// 5레벨 이상 모든 기능 사용 가능 (물품 정보 수정, 판매자 삭제)
 	public void ButtonOn() {
 		if (cc.getUser()==null||cc.getUser().getLv()==0) {
-			bp.buts[0][0].setEnabled(true);
+			bp.buts[0].setEnabled(true);
 		}
 		
 		if (cc.getUser()!=null && cc.getUser().getLv()>0) {
-			bp.buts[1][0].setEnabled(true);
-			bp.buts[3][0].setEnabled(true);
-			bp.buts[4][0].setEnabled(true);
-			bp.buts[6][0].setEnabled(true);
+			bp.buts[1].setEnabled(true);
+			bp.buts[3].setEnabled(true);
+			bp.buts[4].setEnabled(true);
+			bp.buts[6].setEnabled(true);
 			if (cc.getUser().getLv()>2) {
-				bp.buts[2][0].setEnabled(true);
+				bp.buts[2].setEnabled(true);
 			}
 			if (cc.getUser().getLv()>3) {
-				bp.buts[5][0].setEnabled(true);
+				bp.buts[5].setEnabled(true);
 			}
 			if (cc.getUser().getLv()>4) {
-				bp.buts[5][0].setEnabled(true);
+				bp.buts[5].setEnabled(true);
 			}
 		}
 
-		bp.buts[7][0].setEnabled(true);
+		bp.buts[7].setEnabled(true);
 	}
 	
 }

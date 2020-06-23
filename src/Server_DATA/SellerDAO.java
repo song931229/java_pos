@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SellerDAO extends BaseDAO {
 	
@@ -119,4 +121,122 @@ public class SellerDAO extends BaseDAO {
 		}
 	}
 	
+	public boolean isNew(String tel) throws SQLException {
+		String sql = "select * from seller where tel=?";
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			ps = con.prepareStatement(sql);
+			ps.setString(1,tel);
+			rs=ps.executeQuery();
+			if(rs.next()) {
+				return true;
+			}else {
+				return false;
+			}
+		}finally {
+			if (rs != null) rs.close();
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
+
+	public int signSeller(SellerDTO sellerDTO) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql = "insert into seller values(seq_seller.nextval,?,?,?,?,?,0,0,?,?)";
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			ps = con.prepareStatement(sql);
+			ps.setString(1,sellerDTO.getName());
+			ps.setString(2,sellerDTO.getTel());
+			ps.setString(3,sellerDTO.getBirth());
+			ps.setString(4,sellerDTO.getId());
+			ps.setString(5,sellerDTO.getPw());
+			ps.setInt(6,sellerDTO.getLv());
+			ps.setString(7,sellerDTO.getJoindate());
+			return ps.executeUpdate();
+		}finally {
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
+	
+	public SellerDTO searchSeller() {
+		return null;
+	}
+
+	public ArrayList<SellerDTO> list_seller(int start,int end) throws SQLException {
+		String sql="select * from (select rownum as rn,A.* from (select * from seller A order by sno desc)A) where rn between ? and ?";
+		ArrayList<SellerDTO> list = new ArrayList<>();
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			ps = con.prepareStatement(sql);
+			ps.setInt(1,start);
+			ps.setInt(2,end);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				int sno=rs.getInt("sno");
+				String name = rs.getString("name");
+				String tel = rs.getString("tel");
+				String birth = rs.getString("birth");
+				String id = rs.getString("id");
+				int c_cash=rs.getInt("c_cash");
+				int n_cash=rs.getInt("n_cash");
+				SellerDTO view = new SellerDTO(sno,name,tel,birth,id,c_cash,n_cash);
+				view.setJoindate(rs.getString("joindate"));
+				list.add(view);
+			}
+			return list;
+		}finally {
+			if (rs != null) rs.close();
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
+	
+	public ArrayList<SellerDTO> searched_list_seller(String search,String searchvalue,int start,int end) throws SQLException {
+		String sql="select * from (select rownum as rn,A.* from (select * from seller A where ? like ? order by sno desc)A) where rn between ? and ?";
+		ArrayList<SellerDTO> list = new ArrayList<>();
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			ps = con.prepareStatement(sql);
+			ps.setString(1,search);
+			ps.setString(2,"%"+searchvalue+"%");
+			ps.setInt(3,start);
+			ps.setInt(4,end);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				int sno=rs.getInt("sno");
+				String name = rs.getString("name");
+				String tel = rs.getString("tel");
+				String birth = rs.getString("birth");
+				String id = rs.getString("id");
+				int c_cash=rs.getInt("c_cash");
+				int n_cash=rs.getInt("n_cash");
+				SellerDTO view = new SellerDTO(sno,name,tel,birth,id,c_cash,n_cash);
+				view.setJoindate(rs.getString("joindate"));
+				list.add(view);
+			}
+			return list;
+		}finally {
+			if (rs != null) rs.close();
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
+
+	public int counts_seller() throws SQLException {
+		String sql="select count(*) from seller";
+		ArrayList<SellerDTO> list = new ArrayList<>();
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}finally {
+			if (rs != null) rs.close();
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
 }

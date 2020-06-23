@@ -34,7 +34,7 @@ public class Login_Command {
 				cc.user = cc.sellerDAO.getSeller(typed_id);
 				cc.login_frame.setVisible(false);
 				cc.login_frame=null;
-				cc.index_frame=new Index_Frame(cc.user);
+				cc.index_frame=new Index_Frame();
 			}else if(returnd==0) {
 				cc.popup("실패", "비밀번호 확인");
 			}else if(returnd==-1) {
@@ -43,15 +43,18 @@ public class Login_Command {
 			break;
 		case 1:
 			cc.login_frame.setVisible(false);
+			cc.login_frame=null;
 			cc.find_id_frame = new Find_Id_Frame();
 			break;
 		case 2:
 			cc.login_frame.setVisible(false);
+			cc.login_frame=null;
 			cc.find_pw_frame = new Find_Pw_Frame();
 			break;
 		case 3:
 			cc.login_frame.setVisible(false);
 			cc.login_frame=null;
+			cc.index_frame= new Index_Frame();
 			cc.index_frame.setVisible(true);
 			break;
 		}
@@ -88,16 +91,18 @@ public class Login_Command {
 					cc.popup("실패", "정보와 일치하는 값을 찾을 수 없습니다.");
 				}else {
 					cc.popup("성공", "찾으시는 아이디는 \n"+returnd+"\n 입니다.");
-					cc.find_id_frame.setVisible(false);
-					cc.find_id_frame=null;
-					cc.login_frame.setVisible(true);
 				}
+				cc.find_id_frame.setVisible(false);
+				cc.find_id_frame=null;
+				cc.login_frame=new Login_Frame();
+				cc.login_frame.setVisible(true);
 				break;
 			case 2:
 				System.out.println("취소");
 				cc.find_id_frame.setVisible(false);
-				cc.login_frame.setVisible(true);
 				cc.find_id_frame=null;
+				cc.login_frame=new Login_Frame();
+				cc.login_frame.setVisible(true);
 				break;
 			}
 			break;
@@ -143,6 +148,7 @@ public class Login_Command {
 				System.out.println("취소");
 				cc.find_pw_frame.setVisible(false);
 				cc.find_pw_frame=null;
+				cc.login_frame=new Login_Frame();
 				cc.login_frame.setVisible(true);
 				break;
 			}
@@ -175,6 +181,7 @@ public class Login_Command {
 					cc.popup("성공", "비밀번호가 성공적으로 변경 되었습니다.");
 					cc.change_pw_frame.setVisible(false);
 					cc.change_pw_frame=null;
+					cc.login_frame=new Login_Frame();
 					cc.login_frame.setVisible(true);
 				}
 				break;

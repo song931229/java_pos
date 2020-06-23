@@ -1,14 +1,14 @@
 create table seller(
-sno number primary key,
-name varchar2(10),
-tel varchar2(20) unique,
-birth varchar2(20),
-id varchar2(10) unique,
-pw varchar2(10),
+0 sno number primary key,
+1 name varchar2(10),
+2 tel varchar2(20) unique,
+3 birth varchar2(20),
+4 id varchar2(10) unique,
+5 pw varchar2(10),
 c_cash number,
 n_cash number,
-lv number,
-joindate varchar(20));
+6 lv number,
+7 joindate varchar(20));
 
 create table buyer(
 bno number primary key,
@@ -45,9 +45,8 @@ pqty number,
 price number,
 orderdate char(20));
 
+
 select id from seller where id='admin'
-
-
 
 
 create sequence seq_buyer;
@@ -55,4 +54,169 @@ create sequence seq_seller;
 create sequence seq_sell_log;
 create sequence seq_buy_log;
 create sequence seq_product;
+
+
+for x in range (1,151):
+    y=x//26
+    z=x%26
+    a="insert into seller values({},'{}','{}','{}','{}','{}',0,0,1,'0');".format(
+        x+1,
+        chr(y+97)+chr(z+97),
+        '{0:011d}'.format(x),
+        '{0:06d}'.format(x),
+        chr(y + 97) + chr(z + 97),
+        '123')
+    print(a)
+
+
+insert into seller values(2,'ab','00000000001','000001','ab','123',0,0,1,'0');
+insert into seller values(3,'ac','00000000002','000002','ac','123',0,0,1,'0');
+insert into seller values(4,'ad','00000000003','000003','ad','123',0,0,1,'0');
+insert into seller values(5,'ae','00000000004','000004','ae','123',0,0,1,'0');
+insert into seller values(6,'af','00000000005','000005','af','123',0,0,1,'0');
+insert into seller values(7,'ag','00000000006','000006','ag','123',0,0,1,'0');
+insert into seller values(8,'ah','00000000007','000007','ah','123',0,0,1,'0');
+insert into seller values(9,'ai','00000000008','000008','ai','123',0,0,1,'0');
+insert into seller values(10,'aj','00000000009','000009','aj','123',0,0,1,'0');
+insert into seller values(11,'ak','00000000010','000010','ak','123',0,0,1,'0');
+insert into seller values(12,'al','00000000011','000011','al','123',0,0,1,'0');
+insert into seller values(13,'am','00000000012','000012','am','123',0,0,1,'0');
+insert into seller values(14,'an','00000000013','000013','an','123',0,0,1,'0');
+insert into seller values(15,'ao','00000000014','000014','ao','123',0,0,1,'0');
+insert into seller values(16,'ap','00000000015','000015','ap','123',0,0,1,'0');
+insert into seller values(17,'aq','00000000016','000016','aq','123',0,0,1,'0');
+insert into seller values(18,'ar','00000000017','000017','ar','123',0,0,1,'0');
+insert into seller values(19,'as','00000000018','000018','as','123',0,0,1,'0');
+insert into seller values(20,'at','00000000019','000019','at','123',0,0,1,'0');
+insert into seller values(21,'au','00000000020','000020','au','123',0,0,1,'0');
+insert into seller values(22,'av','00000000021','000021','av','123',0,0,1,'0');
+insert into seller values(23,'aw','00000000022','000022','aw','123',0,0,1,'0');
+insert into seller values(24,'ax','00000000023','000023','ax','123',0,0,1,'0');
+insert into seller values(25,'ay','00000000024','000024','ay','123',0,0,1,'0');
+insert into seller values(26,'az','00000000025','000025','az','123',0,0,1,'0');
+insert into seller values(27,'ba','00000000026','000026','ba','123',0,0,1,'0');
+insert into seller values(28,'bb','00000000027','000027','bb','123',0,0,1,'0');
+insert into seller values(29,'bc','00000000028','000028','bc','123',0,0,1,'0');
+insert into seller values(30,'bd','00000000029','000029','bd','123',0,0,1,'0');
+insert into seller values(31,'be','00000000030','000030','be','123',0,0,1,'0');
+insert into seller values(32,'bf','00000000031','000031','bf','123',0,0,1,'0');
+insert into seller values(33,'bg','00000000032','000032','bg','123',0,0,1,'0');
+insert into seller values(34,'bh','00000000033','000033','bh','123',0,0,1,'0');
+insert into seller values(35,'bi','00000000034','000034','bi','123',0,0,1,'0');
+insert into seller values(36,'bj','00000000035','000035','bj','123',0,0,1,'0');
+insert into seller values(37,'bk','00000000036','000036','bk','123',0,0,1,'0');
+insert into seller values(38,'bl','00000000037','000037','bl','123',0,0,1,'0');
+insert into seller values(39,'bm','00000000038','000038','bm','123',0,0,1,'0');
+insert into seller values(40,'bn','00000000039','000039','bn','123',0,0,1,'0');
+insert into seller values(41,'bo','00000000040','000040','bo','123',0,0,1,'0');
+insert into seller values(42,'bp','00000000041','000041','bp','123',0,0,1,'0');
+insert into seller values(43,'bq','00000000042','000042','bq','123',0,0,1,'0');
+insert into seller values(44,'br','00000000043','000043','br','123',0,0,1,'0');
+insert into seller values(45,'bs','00000000044','000044','bs','123',0,0,1,'0');
+insert into seller values(46,'bt','00000000045','000045','bt','123',0,0,1,'0');
+insert into seller values(47,'bu','00000000046','000046','bu','123',0,0,1,'0');
+insert into seller values(48,'bv','00000000047','000047','bv','123',0,0,1,'0');
+insert into seller values(49,'bw','00000000048','000048','bw','123',0,0,1,'0');
+insert into seller values(50,'bx','00000000049','000049','bx','123',0,0,1,'0');
+insert into seller values(51,'by','00000000050','000050','by','123',0,0,1,'0');
+insert into seller values(52,'bz','00000000051','000051','bz','123',0,0,1,'0');
+insert into seller values(53,'ca','00000000052','000052','ca','123',0,0,1,'0');
+insert into seller values(54,'cb','00000000053','000053','cb','123',0,0,1,'0');
+insert into seller values(55,'cc','00000000054','000054','cc','123',0,0,1,'0');
+insert into seller values(56,'cd','00000000055','000055','cd','123',0,0,1,'0');
+insert into seller values(57,'ce','00000000056','000056','ce','123',0,0,1,'0');
+insert into seller values(58,'cf','00000000057','000057','cf','123',0,0,1,'0');
+insert into seller values(59,'cg','00000000058','000058','cg','123',0,0,1,'0');
+insert into seller values(60,'ch','00000000059','000059','ch','123',0,0,1,'0');
+insert into seller values(61,'ci','00000000060','000060','ci','123',0,0,1,'0');
+insert into seller values(62,'cj','00000000061','000061','cj','123',0,0,1,'0');
+insert into seller values(63,'ck','00000000062','000062','ck','123',0,0,1,'0');
+insert into seller values(64,'cl','00000000063','000063','cl','123',0,0,1,'0');
+insert into seller values(65,'cm','00000000064','000064','cm','123',0,0,1,'0');
+insert into seller values(66,'cn','00000000065','000065','cn','123',0,0,1,'0');
+insert into seller values(67,'co','00000000066','000066','co','123',0,0,1,'0');
+insert into seller values(68,'cp','00000000067','000067','cp','123',0,0,1,'0');
+insert into seller values(69,'cq','00000000068','000068','cq','123',0,0,1,'0');
+insert into seller values(70,'cr','00000000069','000069','cr','123',0,0,1,'0');
+insert into seller values(71,'cs','00000000070','000070','cs','123',0,0,1,'0');
+insert into seller values(72,'ct','00000000071','000071','ct','123',0,0,1,'0');
+insert into seller values(73,'cu','00000000072','000072','cu','123',0,0,1,'0');
+insert into seller values(74,'cv','00000000073','000073','cv','123',0,0,1,'0');
+insert into seller values(75,'cw','00000000074','000074','cw','123',0,0,1,'0');
+insert into seller values(76,'cx','00000000075','000075','cx','123',0,0,1,'0');
+insert into seller values(77,'cy','00000000076','000076','cy','123',0,0,1,'0');
+insert into seller values(78,'cz','00000000077','000077','cz','123',0,0,1,'0');
+insert into seller values(79,'da','00000000078','000078','da','123',0,0,1,'0');
+insert into seller values(80,'db','00000000079','000079','db','123',0,0,1,'0');
+insert into seller values(81,'dc','00000000080','000080','dc','123',0,0,1,'0');
+insert into seller values(82,'dd','00000000081','000081','dd','123',0,0,1,'0');
+insert into seller values(83,'de','00000000082','000082','de','123',0,0,1,'0');
+insert into seller values(84,'df','00000000083','000083','df','123',0,0,1,'0');
+insert into seller values(85,'dg','00000000084','000084','dg','123',0,0,1,'0');
+insert into seller values(86,'dh','00000000085','000085','dh','123',0,0,1,'0');
+insert into seller values(87,'di','00000000086','000086','di','123',0,0,1,'0');
+insert into seller values(88,'dj','00000000087','000087','dj','123',0,0,1,'0');
+insert into seller values(89,'dk','00000000088','000088','dk','123',0,0,1,'0');
+insert into seller values(90,'dl','00000000089','000089','dl','123',0,0,1,'0');
+insert into seller values(91,'dm','00000000090','000090','dm','123',0,0,1,'0');
+insert into seller values(92,'dn','00000000091','000091','dn','123',0,0,1,'0');
+insert into seller values(93,'do','00000000092','000092','do','123',0,0,1,'0');
+insert into seller values(94,'dp','00000000093','000093','dp','123',0,0,1,'0');
+insert into seller values(95,'dq','00000000094','000094','dq','123',0,0,1,'0');
+insert into seller values(96,'dr','00000000095','000095','dr','123',0,0,1,'0');
+insert into seller values(97,'ds','00000000096','000096','ds','123',0,0,1,'0');
+insert into seller values(98,'dt','00000000097','000097','dt','123',0,0,1,'0');
+insert into seller values(99,'du','00000000098','000098','du','123',0,0,1,'0');
+insert into seller values(100,'dv','00000000099','000099','dv','123',0,0,1,'0');
+insert into seller values(101,'dw','00000000100','000100','dw','123',0,0,1,'0');
+insert into seller values(102,'dx','00000000101','000101','dx','123',0,0,1,'0');
+insert into seller values(103,'dy','00000000102','000102','dy','123',0,0,1,'0');
+insert into seller values(104,'dz','00000000103','000103','dz','123',0,0,1,'0');
+insert into seller values(105,'ea','00000000104','000104','ea','123',0,0,1,'0');
+insert into seller values(106,'eb','00000000105','000105','eb','123',0,0,1,'0');
+insert into seller values(107,'ec','00000000106','000106','ec','123',0,0,1,'0');
+insert into seller values(108,'ed','00000000107','000107','ed','123',0,0,1,'0');
+insert into seller values(109,'ee','00000000108','000108','ee','123',0,0,1,'0');
+insert into seller values(110,'ef','00000000109','000109','ef','123',0,0,1,'0');
+insert into seller values(111,'eg','00000000110','000110','eg','123',0,0,1,'0');
+insert into seller values(112,'eh','00000000111','000111','eh','123',0,0,1,'0');
+insert into seller values(113,'ei','00000000112','000112','ei','123',0,0,1,'0');
+insert into seller values(114,'ej','00000000113','000113','ej','123',0,0,1,'0');
+insert into seller values(115,'ek','00000000114','000114','ek','123',0,0,1,'0');
+insert into seller values(116,'el','00000000115','000115','el','123',0,0,1,'0');
+insert into seller values(117,'em','00000000116','000116','em','123',0,0,1,'0');
+insert into seller values(118,'en','00000000117','000117','en','123',0,0,1,'0');
+insert into seller values(119,'eo','00000000118','000118','eo','123',0,0,1,'0');
+insert into seller values(120,'ep','00000000119','000119','ep','123',0,0,1,'0');
+insert into seller values(121,'eq','00000000120','000120','eq','123',0,0,1,'0');
+insert into seller values(122,'er','00000000121','000121','er','123',0,0,1,'0');
+insert into seller values(123,'es','00000000122','000122','es','123',0,0,1,'0');
+insert into seller values(124,'et','00000000123','000123','et','123',0,0,1,'0');
+insert into seller values(125,'eu','00000000124','000124','eu','123',0,0,1,'0');
+insert into seller values(126,'ev','00000000125','000125','ev','123',0,0,1,'0');
+insert into seller values(127,'ew','00000000126','000126','ew','123',0,0,1,'0');
+insert into seller values(128,'ex','00000000127','000127','ex','123',0,0,1,'0');
+insert into seller values(129,'ey','00000000128','000128','ey','123',0,0,1,'0');
+insert into seller values(130,'ez','00000000129','000129','ez','123',0,0,1,'0');
+insert into seller values(131,'fa','00000000130','000130','fa','123',0,0,1,'0');
+insert into seller values(132,'fb','00000000131','000131','fb','123',0,0,1,'0');
+insert into seller values(133,'fc','00000000132','000132','fc','123',0,0,1,'0');
+insert into seller values(134,'fd','00000000133','000133','fd','123',0,0,1,'0');
+insert into seller values(135,'fe','00000000134','000134','fe','123',0,0,1,'0');
+insert into seller values(136,'ff','00000000135','000135','ff','123',0,0,1,'0');
+insert into seller values(137,'fg','00000000136','000136','fg','123',0,0,1,'0');
+insert into seller values(138,'fh','00000000137','000137','fh','123',0,0,1,'0');
+insert into seller values(139,'fi','00000000138','000138','fi','123',0,0,1,'0');
+insert into seller values(140,'fj','00000000139','000139','fj','123',0,0,1,'0');
+insert into seller values(141,'fk','00000000140','000140','fk','123',0,0,1,'0');
+insert into seller values(142,'fl','00000000141','000141','fl','123',0,0,1,'0');
+insert into seller values(143,'fm','00000000142','000142','fm','123',0,0,1,'0');
+insert into seller values(144,'fn','00000000143','000143','fn','123',0,0,1,'0');
+insert into seller values(145,'fo','00000000144','000144','fo','123',0,0,1,'0');
+insert into seller values(146,'fp','00000000145','000145','fp','123',0,0,1,'0');
+insert into seller values(147,'fq','00000000146','000146','fq','123',0,0,1,'0');
+insert into seller values(148,'fr','00000000147','000147','fr','123',0,0,1,'0');
+insert into seller values(149,'fs','00000000148','000148','fs','123',0,0,1,'0');
+insert into seller values(150,'ft','00000000149','000149','ft','123',0,0,1,'0');
+insert into seller values(151,'fu','00000000150','000150','fu','123',0,0,1,'0');
 

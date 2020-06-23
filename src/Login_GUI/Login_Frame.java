@@ -22,10 +22,10 @@ public class Login_Frame extends Base_Frame {
 	public JTextField jtf_id= new JTextField();
 	public JPasswordField jtf_pw= new JPasswordField();
 	
-	MYButton login = new MYButton("로그인",1,0);
-	MYButton F_id = new MYButton("ID찾기",1,1);
-	MYButton F_pw = new MYButton("PW찾기",1,2);
-	MYButton cancel = new MYButton("취소",1,3);
+	MYButton login = new MYButton("로그인",1,0,0);
+	MYButton F_id = new MYButton("ID찾기",1,0,1);
+	MYButton F_pw = new MYButton("PW찾기",1,0,2);
+	MYButton cancel = new MYButton("취소",1,0,3);
 	
 	public Login_Frame() {
 		super("Login", 300, 200);

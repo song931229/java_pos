@@ -14,11 +14,25 @@ public class SellerDTO {
 	public SellerDTO() {
 	}
 	
-	public SellerDTO(String name, String tel, String birth,String id, String pw, int c_cash, int n_cash, String joindate) {
+	public SellerDTO(String name, String tel, String birth,String id, String pw, int lv) {
 		this.name = name;
 		this.tel = tel;
 		this.id = id;
 		this.pw=pw;
+		this.c_cash=0;
+		this.n_cash=0;
+		this.lv=lv;
+		java.util.Date date = new java.util.Date();
+		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		this.joindate = sdf.format(date);
+	}
+	
+	public SellerDTO(int sno,String name, String tel, String birth,String id, int c_cash, int n_cash) {
+		this.sno=sno;
+		this.name = name;
+		this.tel = tel;
+		this.birth=birth;
+		this.id = id;
 		this.c_cash=c_cash;
 		this.n_cash=n_cash;
 		java.util.Date date = new java.util.Date();

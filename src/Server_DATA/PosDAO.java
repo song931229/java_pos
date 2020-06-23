@@ -28,20 +28,18 @@ public class PosDAO extends BaseDAO{
 	}
 	
 	public int create_admin() throws SQLException {
-		String sql = "insert into seller values(seq_seller.nextval,?,?,?,?,?,?,?,?,?)";
+		String sql = "insert into seller values(seq_seller.nextval,?,?,?,?,?,0,0,?,?)";
+		SellerDTO admin= new SellerDTO("admin","999-9999-9999","999999","admin","123",6);
 		try {
-			
 			con = DriverManager.getConnection(url, user, pass);
 			ps = con.prepareStatement(sql);
-			ps.setString(1,"admin");
-			ps.setString(2,"999-9999-9999");
-			ps.setString(3,"999999");
-			ps.setString(4,"admin");
-			ps.setString(5,"123");
-			ps.setInt(6,0);
-			ps.setInt(7,0);
-			ps.setInt(8,6);
-			ps.setString(9,"joindate");
+			ps.setString(1,admin.getName());
+			ps.setString(2,admin.getTel());
+			ps.setString(3,admin.getBirth());
+			ps.setString(4,admin.getId());
+			ps.setString(5,admin.getPw());
+			ps.setInt(6,admin.getLv());
+			ps.setString(7,admin.getJoindate());
 			
 			return ps.executeUpdate();
 

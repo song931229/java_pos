@@ -13,7 +13,7 @@ public class Product_Frame extends Base_Frame {
 		super("상품 관리", 200, 500);
 		// TODO Auto-generated constructor stub
 
-		bp=new Buts_Panel(4,1,7,contents,true);
+		bp=new Buts_Panel(false,4,7,0,contents,true);
 		
 		this.setMainPanel(bp);
 		this.ButtonOn();
@@ -22,7 +22,7 @@ public class Product_Frame extends Base_Frame {
 	
 	public void ButtonOn() {
 		for (int i=0; i<bp.buts.length; i++) {
-			bp.buts[i][0].setEnabled(true);
+			bp.buts[i].setEnabled(true);
 		}
 	}
 

@@ -21,10 +21,10 @@ public class Buyer_List_Frame extends Base_Frame  {
 	MYPanel list= new MYPanel();
 	
 	String[] sbar_S= {"이름","전화","생년","Lv","가입일"};
-	SearchBar sbar = new SearchBar(sbar_S);
+	SearchBar sbar = new SearchBar(sbar_S,6,2);
 	
 	String[] bp_S= {"<","1","2","3",">"};
-	Buts_Panel bp1= new Buts_Panel(1,5,bp_S,false);
+	Buts_Panel bp1= new Buts_Panel(5,6,2,bp_S,false);
 
 	DefaultTableModel m = (DefaultTableModel)table.getModel();
 	

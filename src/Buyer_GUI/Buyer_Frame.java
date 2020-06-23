@@ -12,7 +12,7 @@ public class Buyer_Frame extends Base_Frame {
 		// TODO Auto-generated constructor stub
 
 		String[] contents= {"고객 등록","고객 목록","종료"};
-		bp=new Buts_Panel(3,1,6,contents,true);
+		bp=new Buts_Panel(false,3,6,0,contents,true);
 		this.setMainPanel(bp);
 		this.ButtonOn();
 		this.setVisible(true);
@@ -20,7 +20,7 @@ public class Buyer_Frame extends Base_Frame {
 	
 	public void ButtonOn() {
 		for (int i=0; i<bp.buts.length; i++) {
-			bp.buts[i][0].setEnabled(true);
+			bp.buts[i].setEnabled(true);
 		}
 	}
 

@@ -15,7 +15,7 @@ public class Seller_Frame extends Base_Frame {
 		super("직원 관리", 200, 300);
 		// TODO Auto-generated constructor stub
 
-		bp=new Buts_Panel(3,1,5,contents,false);
+		bp=new Buts_Panel(false,3,5,0,contents,false);
 		this.setMainPanel(bp);
 		this.ButtonOn();
 		
@@ -23,12 +23,12 @@ public class Seller_Frame extends Base_Frame {
 	
 	public void ButtonOn() {
 		if(cc.getUser().getLv()>2) {
-			bp.buts[0][0].setEnabled(true);
+			bp.buts[0].setEnabled(true);
 		}
 		if(cc.getUser().getLv()>3) {
-			bp.buts[1][0].setEnabled(true);
+			bp.buts[1].setEnabled(true);
 		}
-		bp.buts[2][0].setEnabled(true);
+		bp.buts[2].setEnabled(true);
 	}
 
 }

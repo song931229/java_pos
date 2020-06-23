@@ -11,26 +11,12 @@ import Controls.Command_Center;
 public class MYButton extends JButton {
 	Command_Center aa=Command_Center.getInstance();
 	
-	public MYButton(String con,int frame, int butno){
-		super(con);
-		this.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					aa.command(frame, butno);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-	}
-	
 	public MYButton(String con,int frame,int subframe, int butno){
 		super(con);
 		this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					aa.subcommand(frame,subframe, butno);
+					aa.command(frame,subframe, butno);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

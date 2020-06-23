@@ -9,36 +9,57 @@ import javax.swing.*;
 import Index_GUI.MYButton;
 
 public class Buts_Panel extends JPanel {
-	public MYButton[][] buts;
+	public MYButton[] buts;
 	
-	public Buts_Panel(int m, int n,String[] contents,Boolean OnOff){
-		buts= new MYButton[m][n];
-		GridLayout gl = new GridLayout(m,n);
+	public Buts_Panel(int n,int frame,int subframe,String[] contents,Boolean OnOff, int k){
+		buts = new MYButton[n];
+		GridLayout gl = new GridLayout(1,n);
 		this.setLayout(gl);
 		int count=0;
-		for (int i = 0; i < m; i++) {
-			for (int j=0; j<n; j++) {
-				buts[i][j]=new MYButton(contents[count],9,i+1);
-				buts[i][j].setEnabled(OnOff);
-				this.add(buts[i][j]);
-				count++;
-			}
-        }
+		for (int i = 0; i < n; i++) {
+			buts[i]=new MYButton(contents[count],frame,subframe,i+k);
+			buts[i].setEnabled(OnOff);
+			this.add(buts[i]);
+			count++;
+		}
 	}
 	
-	public Buts_Panel(int m, int n,int frame,String[] contents,Boolean OnOff){
-		buts= new MYButton[m][n];
-		GridLayout gl = new GridLayout(m,n);
+	public Buts_Panel(int n,int frame,int subframe,String[] contents,Boolean OnOff){
+		buts = new MYButton[n];
+		GridLayout gl = new GridLayout(1,n);
 		this.setLayout(gl);
 		int count=0;
-		for (int i = 0; i < m; i++) {
-			for (int j=0; j<n; j++) {
-				buts[i][j]=new MYButton(contents[count],frame,i+1);
-				buts[i][j].setEnabled(OnOff);
-				this.add(buts[i][j]);
-				count++;
-			}
-        }
+		for (int i = 0; i < n; i++) {
+			buts[i]=new MYButton(contents[count],frame,subframe,i+1);
+			buts[i].setEnabled(OnOff);
+			this.add(buts[i]);
+			count++;
+		}
 	}
 	
+	public Buts_Panel(Boolean m, int n,int frame,int subframe,String[] contents,Boolean OnOff){
+		if (m==true) {
+			buts = new MYButton[n];
+			GridLayout gl = new GridLayout(1,n);
+			this.setLayout(gl);
+			int count=0;
+			for (int i = 0; i < n; i++) {
+				buts[i]=new MYButton(contents[count],frame,subframe,i+1);
+				buts[i].setEnabled(OnOff);
+				this.add(buts[i]);
+				count++;
+			}
+		}else {
+			buts = new MYButton[n];
+			GridLayout gl = new GridLayout(n,1);
+			this.setLayout(gl);
+			int count=0;
+			for (int i = 0; i < n; i++) {
+				buts[i]=new MYButton(contents[count],frame,subframe,i+1);
+				buts[i].setEnabled(OnOff);
+				this.add(buts[i]);
+				count++;
+			}
+		}
+	}
 }

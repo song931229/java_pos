@@ -1,6 +1,8 @@
 package Controls;
+import java.awt.Frame;
 import java.sql.SQLException;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import Buyer_GUI.*;
@@ -30,6 +32,7 @@ public class Command_Center {
 	protected Seller_Sign_Frame seller_sign_frame;
 	protected Seller_List_Frame seller_list_frame;
 	protected Seller_Info_Frame seller_info_frame;
+	protected Seller_Update_Frame seller_update_frame;
 	//6 고객 관리
 	protected Buyer_Frame buyer_frame;
 	protected Buyer_Sign_Frame Buyer_sign_frame;
@@ -37,10 +40,13 @@ public class Command_Center {
 	protected Product_Frame product_frame;
 	//	8 종료
 	
-	protected SellerDAO sellerDAO=new SellerDAO();
+	public SellerDAO sellerDAO=new SellerDAO();
 	
 	protected Login_Command login_command=new Login_Command();
 	protected Seller_Command seller_command=new Seller_Command();
+	protected Buyer_Command buyer_command=new Buyer_Command();
+	protected Product_Command product_command=new Product_Command();
+
 	
 	private Command_Center(){}
 	
@@ -68,6 +74,14 @@ public class Command_Center {
 
 	public void popup(String title, String con) {
 		JOptionPane.showMessageDialog(null, con, title, JOptionPane.WARNING_MESSAGE);
+	}
+	
+	public void popup(JFrame frame,String title, String con) {
+		if (frame.getState()== Frame.ICONIFIED) {
+			frame.setState(Frame.NORMAL);
+		}
+		frame.requestFocus();
+		JOptionPane.showMessageDialog(frame, con, title, JOptionPane.WARNING_MESSAGE);
 	}
 	
 	public String diup(String title, String con) {
@@ -106,10 +120,18 @@ public class Command_Center {
 			}
 			break;
 		case 6:
-			System.out.println("고객관리 커맨드");
+			if(subframe==0) {
+				buyer_command.command(butno);
+			}else {
+				buyer_command.subcommand(subframe, butno);
+			}
 			break;
 		case 7:
-			System.out.println("상품관리 커맨드");
+			if(subframe==0) {
+				product_command.command(butno);
+			}else {
+				product_command.subcommand(subframe, butno);
+			}
 			break;
 		}
 	}

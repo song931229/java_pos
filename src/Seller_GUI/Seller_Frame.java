@@ -7,6 +7,7 @@ import Index_GUI.Base_Frame;
 import Pannel.*;
 
 public class Seller_Frame extends Base_Frame {
+	// 프레임번호 5-0
 	private Command_Center cc=Command_Center.getInstance();
 	private Buts_Panel bp;
 	private String[] contents= {"직원 등록","직원 목록","종료"};

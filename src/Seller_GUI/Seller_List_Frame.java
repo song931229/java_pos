@@ -1,6 +1,7 @@
 package Seller_GUI;
 
 import java.awt.*;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,8 +15,12 @@ import Pannel.*;
 import Server_DATA.*;
 
 public class Seller_List_Frame extends Base_Frame {
-	private SellerDAO sellerDAO=new SellerDAO();
-
+	// 프레임번호 5-2
+	private Command_Center cc=Command_Center.getInstance();
+	public String search;
+	public String searchvalue;
+	public int clicked_row=-1;
+	public String clicked_id;
 	public int current_page=1;
 	private int pagesize=30;
 	public int endpage;
@@ -39,7 +44,6 @@ public class Seller_List_Frame extends Base_Frame {
 		// TODO Auto-generated constructor stub
 		list.setBackground(Color.WHITE);
 		list.setBorderLayout();
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		table.getTableHeader().setFont(new Font("맑은고딕", Font.BOLD, 15));
 		list.add(new JScrollPane(table));
 		
@@ -62,7 +66,15 @@ public class Seller_List_Frame extends Base_Frame {
 	}
 	
 	public void shows() throws SQLException {
-		this.pagecal();
+		if (search==null&&searchvalue==null) {
+			total_counts=cc.sellerDAO.counts_seller();
+		}else {
+			total_counts=cc.sellerDAO.counts_searched_seller(search, searchvalue);
+		}
+		endpage=total_counts/pagesize;
+		if (total_counts%pagesize!=0) {
+			endpage+=1;
+		}
 		if (current_page>endpage) {
 			return;
 		}
@@ -77,51 +89,31 @@ public class Seller_List_Frame extends Base_Frame {
 		for(int i=1; i<4; i++) {
 			bp1.buts[i].setText(buts_con[i-1]);
 		}
-		ArrayList<SellerDTO> seller_lsit=sellerDAO.list_seller(start,end);
-		Iterator<SellerDTO> it = seller_lsit.iterator();
-		DefaultTableModel m=new DefaultTableModel(Data,ColName);
+		ArrayList<SellerDTO> seller_lsit;
+		if (search==null&&searchvalue==null) {
+			 seller_lsit=cc.sellerDAO.list_seller(start,end);
+		}else {
+			seller_lsit=
+					cc.sellerDAO.searched_list_seller(search, searchvalue, start, end);
+		}
 		
-		while (it.hasNext()) {
-			SellerDTO sellerDTO=it.next();
-			m.addRow(new Object[]{
-					sellerDTO.getName(),
-					sellerDTO.getTel(),
-					sellerDTO.getBirth(),
-					sellerDTO.getId(),
-					sellerDTO.getC_cash(),
-					sellerDTO.getN_cash(),
-					sellerDTO.getLv(),
-					sellerDTO.getJoindate()
-					});
-		}
-		table.setModel(m);
-		this.ButtonOn();
-	}
-	
-
-	public void searched_show() throws SQLException {
-		// TODO Auto-generated method stub
-		this.pagecal();
-		if (current_page>endpage) {
-			return;
-		}
-		int start=current_page*pagesize-(pagesize-1);
-		int end=current_page*pagesize;
-		if (end>total_counts) {
-			total_counts=end;
-		}
-		int buts_num=(current_page-1)/3;
-		String [] buts_con= {Integer.toString(buts_num*3+1),Integer.toString(buts_num*3+2),
-				Integer.toString(buts_num*3+3)};
-		for(int i=1; i<4; i++) {
-			bp1.buts[i].setText(buts_con[i-1]);
-		}
-		String search=(String) this.sbar.searchcom.getSelectedItem();
-		String searchvalue= this.sbar.searchvalue.getText();
-		ArrayList<SellerDTO> seller_lsit=sellerDAO.searched_list_seller(search,searchvalue,start,end);
 		Iterator<SellerDTO> it = seller_lsit.iterator();
-		DefaultTableModel m=new DefaultTableModel(Data,ColName);
-		
+		DefaultTableModel m=new DefaultTableModel(Data,ColName) {
+			public boolean isCellEditable(int row, int column) {
+				if (clicked_row==row) {
+					try {
+						cc.command(5, 0, 4);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else {
+					clicked_id=(String) this.getValueAt(row, 3);
+					clicked_row=row;
+				}
+				return false;//This causes all cells to be not editable
+				}
+			};
 		while (it.hasNext()) {
 			SellerDTO sellerDTO=it.next();
 			m.addRow(new Object[]{
@@ -177,13 +169,5 @@ public class Seller_List_Frame extends Base_Frame {
 			bp1.buts[3].setEnabled(false);
 		}
 		
-	}
-	
-	public void pagecal() throws SQLException {
-		total_counts=sellerDAO.counts_seller();
-		endpage=total_counts/pagesize;
-		if (total_counts%pagesize!=0) {
-			endpage+=1;
-		}
 	}
 }

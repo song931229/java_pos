@@ -1,19 +1,19 @@
 package Controls;
 
-import java.awt.Frame;
 import java.sql.SQLException;
 
-import Seller_GUI.*;
+import Seller_GUI.Seller_Info_Frame;
+import Seller_GUI.Seller_List_Frame;
+import Seller_GUI.Seller_Sign_Frame;
 import Server_DATA.SellerDTO;
 
-public class Seller_Command {
+public class Product_Command {
 	private Command_Center cc;
-	
 	public void command(int butno) throws SQLException {
 		cc=Command_Center.getInstance();
 		switch(butno) {
 		case 1:
-			String tel=cc.diup("중복확인", "전화번호를 입력해 주세요.");
+			String tel=cc.diup("중복확인", "바코드를 입력해 주세요.");
 			if (tel==null) {
 				break;
 			}
@@ -34,11 +34,6 @@ public class Seller_Command {
 			cc.index_frame.setVisible(true);
 			break;
 		case 4:
-			if(cc.seller_info_frame==null) {
-				cc.seller_info_frame=new Seller_Info_Frame(cc.seller_list_frame.clicked_id);
-			}else {
-				cc.popup(cc.seller_info_frame,"경고","이미 정보창이 열려있습니다.");
-			}
 			break;
 		}
 	}
@@ -121,14 +116,10 @@ public class Seller_Command {
 				}
 				break;
 			case 6:
-				if(cc.seller_list_frame.sbar.searchvalue.getText().equals("")) {
-					cc.popup("유효성", "검색값을 입력해 주세요.");
-					break;
-				}
+				cc.seller_list_frame.current_page=1;
 				String[] search= {"name","tel","birth","id","lv","joindate"};
 				int index=cc.seller_list_frame.sbar.searchcom.getSelectedIndex();
 				cc.seller_list_frame.search=search[index];
-				cc.seller_list_frame.current_page=1;
 				cc.seller_list_frame.searchvalue=cc.seller_list_frame.sbar.searchvalue.getText();
 				cc.seller_list_frame.shows();
 				break;
@@ -150,9 +141,6 @@ public class Seller_Command {
 		case 4:
 			switch(butno) {
 			case 1:
-				cc.seller_info_frame.setVisible(false);
-				cc.seller_update_frame= new Seller_Update_Frame(cc.seller_info_frame.sellerdto);
-				cc.seller_info_frame=null;
 				break;
 			case 2:
 				break;
@@ -160,45 +148,6 @@ public class Seller_Command {
 				cc.seller_info_frame.setVisible(false);
 				cc.seller_info_frame=null;
 				break;
-			}
-			break;
-		case 5:
-			switch(butno){
-			case 1:
-				if (cc.seller_update_frame.jtf_tel.getText().equals("")) {
-					cc.popup("유효성 검사", "전화번호를 입력해 주세요.");
-					break;
-				}
-				if (cc.seller_update_frame.jtf_ncash.getText().equals("")) {
-					cc.popup("유효성 검사", "N_Cash를 입력해 주세요.");
-					break;
-				}
-				if (cc.seller_update_frame.jtf_lv.getText().equals("")) {
-					cc.popup("유효성 검사", "Lv를 입력해 주세요.");
-					break;
-				}
-				SellerDTO updateDTO=cc.seller_update_frame.sellerDTO;
-				updateDTO.setTel(cc.seller_update_frame.jtf_tel.getText());
-				updateDTO.setN_cash(
-						Integer.parseInt(cc.seller_update_frame.jtf_ncash.getText()));
-				updateDTO.setLv(
-						Integer.parseInt(cc.seller_update_frame.jtf_lv.getText()));
-				if(updateDTO.getLv()>=cc.user.getLv()) {
-					cc.popup("경고", "현재 권한(Lv)보다 높거나 같은 권한(Lv)을 부여 할 수 없습니다.");
-				}
-				int result=cc.sellerDAO.update_Seller(updateDTO);
-				if (result==1) {
-					cc.popup("성공", "수정에 성공하였습니다.!");
-				}else {
-					cc.popup("실패", "수정에 실패하였습니다.!");
-				}
-				cc.seller_update_frame.setVisible(false);
-				cc.seller_update_frame=null;
-				cc.seller_list_frame.shows();
-				break;
-			case 2:
-				cc.seller_update_frame.setVisible(false);
-				cc.seller_update_frame=null;
 			}
 		}
 	}

@@ -17,6 +17,7 @@ public class SellerDTO {
 	public SellerDTO(String name, String tel, String birth,String id, String pw, int lv) {
 		this.name = name;
 		this.tel = tel;
+		this.birth=birth;
 		this.id = id;
 		this.pw=pw;
 		this.c_cash=0;

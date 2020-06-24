@@ -46,14 +46,37 @@ public class SellerDAO extends BaseDAO {
 			rs = ps.executeQuery();
 			SellerDTO sellerDTO=new SellerDTO();
 			if(rs.next()) {
-				String name=rs.getString("name");
-				int c_cash=rs.getInt("c_cash");
-				int n_cash=rs.getInt("n_cash");
-				int lv=rs.getInt("lv");
-				sellerDTO.setLv(lv);
-				sellerDTO.setC_cash(c_cash);
-				sellerDTO.setN_cash(n_cash);
-				sellerDTO.setName(name);
+				sellerDTO.setLv(rs.getInt("lv"));
+				sellerDTO.setC_cash(rs.getInt("c_cash"));
+				sellerDTO.setN_cash(rs.getInt("n_cash"));
+				sellerDTO.setName(rs.getString("name"));
+			}
+			return sellerDTO;
+		}finally {
+			if (rs != null) rs.close();
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
+	
+	public SellerDTO infoSeller(String typed_id) throws SQLException {
+		// 로그인 후 ID값에 맞는 Seller객체 반환
+		String sql = "select * from seller where id=?";
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			ps = con.prepareStatement(sql);
+			ps.setString(1,typed_id);
+			rs = ps.executeQuery();
+			SellerDTO sellerDTO=new SellerDTO();
+			if(rs.next()) {
+				sellerDTO.setName(rs.getString("name"));
+				sellerDTO.setTel(rs.getString("tel"));
+				sellerDTO.setBirth(rs.getString("birth"));
+				sellerDTO.setId(rs.getString("id"));
+				sellerDTO.setC_cash(rs.getInt("c_cash"));
+				sellerDTO.setN_cash(rs.getInt("n_cash"));
+				sellerDTO.setLv(rs.getInt("lv"));
+				sellerDTO.setJoindate(rs.getString("joindate"));
 			}
 			return sellerDTO;
 		}finally {
@@ -183,6 +206,7 @@ public class SellerDAO extends BaseDAO {
 				int n_cash=rs.getInt("n_cash");
 				SellerDTO view = new SellerDTO(sno,name,tel,birth,id,c_cash,n_cash);
 				view.setJoindate(rs.getString("joindate"));
+				view.setLv(rs.getInt("lv"));
 				list.add(view);
 			}
 			return list;
@@ -194,15 +218,16 @@ public class SellerDAO extends BaseDAO {
 	}
 	
 	public ArrayList<SellerDTO> searched_list_seller(String search,String searchvalue,int start,int end) throws SQLException {
-		String sql="select * from (select rownum as rn,A.* from (select * from seller A where ? like ? order by sno desc)A) where rn between ? and ?";
+		String sql="select * from (select rownum as rn,A.* from (select * from seller A where "+search+" like ? order by "+search+")A) where rn between ? and ?";
 		ArrayList<SellerDTO> list = new ArrayList<>();
+		System.out.println(search);
+		System.out.println(searchvalue);
 		try {
 			con = DriverManager.getConnection(url, user, pass);
 			ps = con.prepareStatement(sql);
-			ps.setString(1,search);
-			ps.setString(2,"%"+searchvalue+"%");
-			ps.setInt(3,start);
-			ps.setInt(4,end);
+			ps.setString(1,"%"+searchvalue+"%");
+			ps.setInt(2,start);
+			ps.setInt(3,end);
 			rs = ps.executeQuery();
 			while(rs.next()) {
 				int sno=rs.getInt("sno");
@@ -235,6 +260,39 @@ public class SellerDAO extends BaseDAO {
 			return rs.getInt(1);
 		}finally {
 			if (rs != null) rs.close();
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
+
+	public int counts_searched_seller(String search, String searchvalue) throws SQLException {
+		String sql="select count(*) from (select rownum as rn,A.* from (select * from seller A where "+search+" like ? order by "+search+")A)";
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			ps = con.prepareStatement(sql);
+			ps.setString(1,"%"+searchvalue+"%");
+			rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		}finally {
+			if (rs != null) rs.close();
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
+
+	public int update_Seller(SellerDTO updateDTO) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql="update seller set tel=?,n_cash=?,lv=? where id=?";
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			ps = con.prepareStatement(sql);
+			ps.setString(1,updateDTO.getTel());
+			ps.setInt(2,updateDTO.getN_cash());
+			ps.setInt(3,updateDTO.getLv());
+			ps.setString(4,updateDTO.getId());
+			return ps.executeUpdate();
+		}finally {
 			if (ps != null) ps.close();
 			if (con != null) con.close();
 		}

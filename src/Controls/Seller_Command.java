@@ -230,6 +230,7 @@ public class Seller_Command {
 				cc.seller_update_frame.setVisible(false);
 				cc.seller_update_frame=null;
 			}
+			break;
 		}
 	}
 }

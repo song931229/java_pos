@@ -150,6 +150,7 @@ public class Buyer_Command {
 				cc.buyer_info_frame=null;
 				break;
 			}
+			break;
 		}
 	}
 }

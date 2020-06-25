@@ -10,7 +10,6 @@ import Index_GUI.MYButton;
 import Pannel.MYPanel;
 import Server_DATA.BuyerDTO;
 
-
 public class Buyer_Info_Frame extends Base_Frame {
 	// 프레임번호 6-4
 	private Command_Center cc=Command_Center.getInstance();

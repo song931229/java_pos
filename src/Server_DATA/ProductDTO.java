@@ -6,16 +6,16 @@ public class ProductDTO {
 	private String company;
 	private int orderprice;
 	private int sellprice;
-	private int pqty;
+	private int pqty=0;
 	private String barcode;
 	
-	public ProductDTO(String name, String company,int orderprice, int sellprice, int pqyt, String barcode) {
-		super();
+	public ProductDTO() {}
+	
+	public ProductDTO(String name, String company,int orderprice, int sellprice, String barcode) {
 		this.name = name;
 		this.company = company;
 		this.orderprice = orderprice;
 		this.sellprice=sellprice;
-		this.pqty=pqty;
 		this.barcode=barcode;
 	}
 

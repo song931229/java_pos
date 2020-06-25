@@ -202,13 +202,13 @@ public class BuyerDAO extends BaseDAO {
 		}
 	}
 
-	public int delete_Seller(String id) throws SQLException {
+	public int delete_Seller(String tel) throws SQLException {
 		// TODO Auto-generated method stub
-		String sql="delete from seller where id=?";
+		String sql="delete from buyer where tel=?";
 		try {
 			con = DriverManager.getConnection(url, user, pass);
 			ps = con.prepareStatement(sql);
-			ps.setString(1,id);
+			ps.setString(1,tel);
 			return ps.executeUpdate();
 		}finally {
 			if (ps != null) ps.close();

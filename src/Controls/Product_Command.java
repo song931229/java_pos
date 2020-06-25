@@ -43,36 +43,13 @@ public class Product_Command {
 			switch(butno) {
 			case 1:
 				String get_name=cc.product_sign_frame.jtf_name.getText();
-				String get_tel=cc.product_sign_frame.jtf_tel.getText();
-				String get_birth=cc.product_sign_frame.jtf_birth.getText();
-				String get_id=cc.product_sign_frame.jtf_id.getText();
-				char[] get_pw1_chars=cc.product_sign_frame.jtf_pw1.getPassword();
-				char[] get_pw2_chars=cc.product_sign_frame.jtf_pw2.getPassword();
-				int get_lv=Integer.parseInt(cc.product_sign_frame.jtf_lv.getText());
-				
-				String get_pw1="";
-				for (int i=0; i<get_pw1_chars.length; i++) {
-					get_pw1+=get_pw1_chars[i];
-				}
-				String get_pw2="";
-				for (int i=0; i<get_pw2_chars.length; i++) {
-					get_pw2+=get_pw2_chars[i];
-				}
-				
-				int user_lv=cc.user.getLv();
-				if (!get_pw1.equals(get_pw2)) {
-					cc.popup("비밀번호", "비밀번호가 일치하지 않습니다.");
-					break;
-				}
-				if (8<=get_lv) {
-					cc.popup("경고", "최고 권한은 6레벨입니다.");
-					break;
-				}else if (user_lv<=get_lv) {
-					cc.popup("경고", "권한("+cc.user.getLv()+")이상의 레벨을 부열할수 없습니다.");
-					break;
-				}
-				ProductDTO productDTO= new ProductDTO(get_name,get_tel,get_birth,get_id,get_pw1,get_lv);
-				int result = cc.productDAO.signproduct(productDTO);
+				String get_company=cc.product_sign_frame.jtf_company.getText();
+				int get_orderprice=Integer.parseInt(cc.product_sign_frame.jtf_orderprice.getText());
+				int get_sellprice=Integer.parseInt(cc.product_sign_frame.jtf_sellprice.getText());
+				String get_barcode=cc.product_sign_frame.jtf_barcode.getText();
+
+				ProductDTO productDTO= new ProductDTO(get_name, get_company, get_orderprice, get_sellprice, get_barcode);
+				int result = cc.productDAO.signProduct(productDTO);
 				if (result==1) {
 					cc.popup("성공", get_name+"님 을 등록하였습니다.");
 				}
@@ -147,6 +124,7 @@ public class Product_Command {
 				cc.product_info_frame=null;
 				break;
 			}
+			break;
 		}
 	}
 }

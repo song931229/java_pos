@@ -116,9 +116,10 @@ public class Seller_List_Frame extends Base_Frame {
 		for(int i=1; i<4; i++) {
 			bp1.buts[i].setText(buts_con[i-1]);
 		}
-		String search=(String) this.sbar.searchcom.getSelectedItem();
+		int searchindex= this.sbar.searchcom.getSelectedIndex();
 		String searchvalue= this.sbar.searchvalue.getText();
-		ArrayList<SellerDTO> seller_lsit=sellerDAO.searched_list_seller(search,searchvalue,start,end);
+		String[] searchS= {"name","tel","birth","id","lv","joindate"};
+		ArrayList<SellerDTO> seller_lsit=sellerDAO.searched_list_seller(searchS[searchindex],searchvalue,start,end);
 		Iterator<SellerDTO> it = seller_lsit.iterator();
 		DefaultTableModel m=new DefaultTableModel(Data,ColName);
 		

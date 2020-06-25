@@ -13,7 +13,7 @@ public class Seller_Command {
 		switch(butno) {
 		case 1:
 			String tel=cc.diup("중복확인", "전화번호를 입력해 주세요.");
-			System.out.println(tel);
+			if (tel==null) break;
 			if (cc.sellerDAO.isNew(tel)==true) {
 				cc.popup("중복", "이미 등록된 전화번호 입니다.");
 				break;
@@ -34,8 +34,6 @@ public class Seller_Command {
 	
 	public void subcommand(int subframe, int butno) throws SQLException {
 		cc=Command_Center.getInstance();
-		System.out.println(subframe);
-		System.out.println(butno);
 		switch(subframe) {
 		case 1:
 			switch(butno) {

@@ -45,17 +45,14 @@ public class Index_Frame extends Base_Frame {
 		
 		if (cc.getUser()!=null && cc.getUser().getLv()>0) {
 			bp.buts[1].setEnabled(true);
-			bp.buts[3].setEnabled(true);
-			bp.buts[4].setEnabled(true);
+			bp.buts[2].setEnabled(true);
+			bp.buts[5].setEnabled(true);
 			bp.buts[6].setEnabled(true);
 			if (cc.getUser().getLv()>2) {
-				bp.buts[2].setEnabled(true);
+				bp.buts[3].setEnabled(true);
 			}
 			if (cc.getUser().getLv()>3) {
-				bp.buts[5].setEnabled(true);
-			}
-			if (cc.getUser().getLv()>4) {
-				bp.buts[5].setEnabled(true);
+				bp.buts[4].setEnabled(true);
 			}
 		}
 

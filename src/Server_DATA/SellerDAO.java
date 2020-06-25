@@ -183,6 +183,7 @@ public class SellerDAO extends BaseDAO {
 				int n_cash=rs.getInt("n_cash");
 				SellerDTO view = new SellerDTO(sno,name,tel,birth,id,c_cash,n_cash);
 				view.setJoindate(rs.getString("joindate"));
+				view.setLv(rs.getInt("lv"));
 				list.add(view);
 			}
 			return list;

@@ -27,8 +27,8 @@ public class mainPOS {
 		}
 		
 		System.out.println("시작");
-		Command_Center start=Command_Center.getInstance();
-		start.start();
+		Command_Center cc_for_start=Command_Center.getInstance();
+		cc_for_start.start();
 		
 //		Index_Frame test=new Index_Frame();
 //		Login_Frame test=new Login_Frame();

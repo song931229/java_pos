@@ -2,8 +2,7 @@ package Controls;
 import java.awt.Frame;
 import java.sql.SQLException;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import Buyer_GUI.*;
 import Index_GUI.*;
@@ -35,12 +34,21 @@ public class Command_Center {
 	protected Seller_Update_Frame seller_update_frame;
 	//6 고객 관리
 	protected Buyer_Frame buyer_frame;
-	protected Buyer_Sign_Frame Buyer_sign_frame;
+	protected Buyer_Sign_Frame buyer_sign_frame;
+	protected Buyer_List_Frame buyer_list_frame;
+	protected Buyer_Info_Frame buyer_info_frame;
+	protected Buyer_Update_Frame buyer_update_frame;
 	//7 상품 관리
 	protected Product_Frame product_frame;
+	protected Product_Sign_Frame product_sign_frame;
+	protected Product_List_Frame product_list_frame;
+	protected Product_Info_Frame product_info_frame;
+	protected Product_Update_Frame product_update_frame;
 	//	8 종료
 	
 	public SellerDAO sellerDAO=new SellerDAO();
+	public BuyerDAO buyerDAO=new BuyerDAO();
+	public ProductDAO productDAO=new ProductDAO();
 	
 	protected Login_Command login_command=new Login_Command();
 	protected Seller_Command seller_command=new Seller_Command();

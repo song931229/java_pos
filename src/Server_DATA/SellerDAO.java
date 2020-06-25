@@ -1,10 +1,6 @@
 package Server_DATA;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +42,7 @@ public class SellerDAO extends BaseDAO {
 			rs = ps.executeQuery();
 			SellerDTO sellerDTO=new SellerDTO();
 			if(rs.next()) {
+				sellerDTO.setId(typed_id);
 				sellerDTO.setLv(rs.getInt("lv"));
 				sellerDTO.setC_cash(rs.getInt("c_cash"));
 				sellerDTO.setN_cash(rs.getInt("n_cash"));
@@ -59,32 +56,6 @@ public class SellerDAO extends BaseDAO {
 		}
 	}
 	
-	public SellerDTO infoSeller(String typed_id) throws SQLException {
-		// 로그인 후 ID값에 맞는 Seller객체 반환
-		String sql = "select * from seller where id=?";
-		try {
-			con = DriverManager.getConnection(url, user, pass);
-			ps = con.prepareStatement(sql);
-			ps.setString(1,typed_id);
-			rs = ps.executeQuery();
-			SellerDTO sellerDTO=new SellerDTO();
-			if(rs.next()) {
-				sellerDTO.setName(rs.getString("name"));
-				sellerDTO.setTel(rs.getString("tel"));
-				sellerDTO.setBirth(rs.getString("birth"));
-				sellerDTO.setId(rs.getString("id"));
-				sellerDTO.setC_cash(rs.getInt("c_cash"));
-				sellerDTO.setN_cash(rs.getInt("n_cash"));
-				sellerDTO.setLv(rs.getInt("lv"));
-				sellerDTO.setJoindate(rs.getString("joindate"));
-			}
-			return sellerDTO;
-		}finally {
-			if (rs != null) rs.close();
-			if (ps != null) ps.close();
-			if (con != null) con.close();
-		}
-	}
 	
 	public String Find_Id(String typed_name, String typed_tel, String typed_birth) throws SQLException {
 		String sql = "select id from seller where name=? and tel=? and birth=?";
@@ -182,10 +153,6 @@ public class SellerDAO extends BaseDAO {
 			if (con != null) con.close();
 		}
 	}
-	
-	public SellerDTO searchSeller() {
-		return null;
-	}
 
 	public ArrayList<SellerDTO> list_seller(int start,int end) throws SQLException {
 		String sql="select * from (select rownum as rn,A.* from (select * from seller A order by sno desc)A) where rn between ? and ?";
@@ -280,6 +247,33 @@ public class SellerDAO extends BaseDAO {
 			if (con != null) con.close();
 		}
 	}
+	
+	public SellerDTO infoSeller(String typed_id) throws SQLException {
+		// 로그인 후 ID값에 맞는 Seller객체 반환
+		String sql = "select * from seller where id=?";
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			ps = con.prepareStatement(sql);
+			ps.setString(1,typed_id);
+			rs = ps.executeQuery();
+			SellerDTO sellerDTO=new SellerDTO();
+			if(rs.next()) {
+				sellerDTO.setName(rs.getString("name"));
+				sellerDTO.setTel(rs.getString("tel"));
+				sellerDTO.setBirth(rs.getString("birth"));
+				sellerDTO.setId(rs.getString("id"));
+				sellerDTO.setC_cash(rs.getInt("c_cash"));
+				sellerDTO.setN_cash(rs.getInt("n_cash"));
+				sellerDTO.setLv(rs.getInt("lv"));
+				sellerDTO.setJoindate(rs.getString("joindate"));
+			}
+			return sellerDTO;
+		}finally {
+			if (rs != null) rs.close();
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
 
 	public int update_Seller(SellerDTO updateDTO) throws SQLException {
 		// TODO Auto-generated method stub
@@ -291,6 +285,20 @@ public class SellerDAO extends BaseDAO {
 			ps.setInt(2,updateDTO.getN_cash());
 			ps.setInt(3,updateDTO.getLv());
 			ps.setString(4,updateDTO.getId());
+			return ps.executeUpdate();
+		}finally {
+			if (ps != null) ps.close();
+			if (con != null) con.close();
+		}
+	}
+
+	public int delete_Seller(String id) throws SQLException {
+		// TODO Auto-generated method stub
+		String sql="delete from seller where id=?";
+		try {
+			con = DriverManager.getConnection(url, user, pass);
+			ps = con.prepareStatement(sql);
+			ps.setString(1,id);
 			return ps.executeUpdate();
 		}finally {
 			if (ps != null) ps.close();

@@ -1,6 +1,5 @@
 package Controls;
 
-import java.awt.Frame;
 import java.sql.SQLException;
 
 import Seller_GUI.*;
@@ -130,6 +129,7 @@ public class Seller_Command {
 				cc.seller_list_frame.search=search[index];
 				cc.seller_list_frame.current_page=1;
 				cc.seller_list_frame.searchvalue=cc.seller_list_frame.sbar.searchvalue.getText();
+				System.out.println("624발동");
 				cc.seller_list_frame.shows();
 				break;
 			case 7:
@@ -151,10 +151,25 @@ public class Seller_Command {
 			switch(butno) {
 			case 1:
 				cc.seller_info_frame.setVisible(false);
-				cc.seller_update_frame= new Seller_Update_Frame(cc.seller_info_frame.sellerdto);
+				cc.seller_update_frame= new Seller_Update_Frame(cc.seller_info_frame.sellerDTO);
 				cc.seller_info_frame=null;
 				break;
 			case 2:
+				String getpw=cc.diup("삭제", "관리자의 비밀번호를 입력해주세요.");
+				int result= cc.sellerDAO.isCollect(cc.user.getId(), getpw);
+				if (result==1) {
+					int sub_result=cc.sellerDAO.delete_Seller(cc.seller_info_frame.sellerDTO.getId());
+					if (sub_result==1) {
+						cc.popup("삭제", cc.user.getId()+"를 삭제하였습니다.");
+						cc.seller_info_frame.setVisible(false);
+						cc.seller_info_frame=null;
+						cc.seller_list_frame.shows();
+					}else {
+						cc.popup("실패", "문제발생 관리자에게 문의하세요.");
+					}
+				}else {
+					cc.popup(cc.seller_info_frame, "실패", "입력된 비밀번호가 틀렸습니다.");
+				}
 				break;
 			case 3:
 				cc.seller_info_frame.setVisible(false);
@@ -186,15 +201,30 @@ public class Seller_Command {
 				if(updateDTO.getLv()>=cc.user.getLv()) {
 					cc.popup("경고", "현재 권한(Lv)보다 높거나 같은 권한(Lv)을 부여 할 수 없습니다.");
 				}
-				int result=cc.sellerDAO.update_Seller(updateDTO);
-				if (result==1) {
-					cc.popup("성공", "수정에 성공하였습니다.!");
-				}else {
-					cc.popup("실패", "수정에 실패하였습니다.!");
+				String getpw=cc.diup("수정", "관리자의 비밀번호를 입력해주세요.");
+				if (getpw==null) {
+					break;
 				}
-				cc.seller_update_frame.setVisible(false);
-				cc.seller_update_frame=null;
-				cc.seller_list_frame.shows();
+				if(getpw.equals("")) {
+					cc.popup("경고", "값을 입력해주세요.");
+				}
+				int result= cc.sellerDAO.isCollect(cc.user.getId(), getpw);
+				if (result==1) {
+					int sub_result=cc.sellerDAO.update_Seller(updateDTO);
+					if (sub_result==1) {
+						cc.popup("성공", "수정에 성공하였습니다.!");
+						cc.seller_update_frame.setVisible(false);
+						cc.seller_update_frame=null;
+						cc.seller_list_frame.shows();
+					}else {
+						cc.popup("실패", "문제발생 관리자에게 문의하세요.");
+					}
+				}else {
+					cc.popup(cc.seller_update_frame, "실패", "입력된 비밀번호가 틀렸습니다.");
+					cc.seller_update_frame.setVisible(false);
+					cc.seller_update_frame=null;
+					cc.seller_info_frame=new Seller_Info_Frame(cc.seller_list_frame.clicked_id);
+				}
 				break;
 			case 2:
 				cc.seller_update_frame.setVisible(false);

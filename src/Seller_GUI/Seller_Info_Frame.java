@@ -16,7 +16,7 @@ import Server_DATA.SellerDTO;
 public class Seller_Info_Frame extends Base_Frame {
 	// 프레임번호 5-4
 	private Command_Center cc=Command_Center.getInstance();
-	public SellerDTO sellerdto;
+	public SellerDTO sellerDTO;
 	MYPanel jp_base= new MYPanel();
 	MYPanel jp_up= new MYPanel();
 	MYPanel jp_down= new MYPanel();
@@ -25,23 +25,23 @@ public class Seller_Info_Frame extends Base_Frame {
 	JLabel[] lbs_r=new JLabel[items.length];
 
 
-	MYButton bt_up=new MYButton("수정",5,4,1);
-	MYButton bt_del=new MYButton("삭제",5,4,2);
+	MYButton bt_up=new MYButton("수정",5,4,1,false);
+	MYButton bt_del=new MYButton("삭제",5,4,2,false);
 	MYButton bt_cc=new MYButton("닫기",5,4,3);
 	
 	public Seller_Info_Frame(String id) throws SQLException {
-		super("Seller Info", 300, 450);
-		sellerdto=cc.sellerDAO.infoSeller(id);
+		super("직원 정보", 300, 450);
+		sellerDTO=cc.sellerDAO.infoSeller(id);
 		// TODO Auto-generated constructor stub
 		String[] values={
-				sellerdto.getName(),
-				sellerdto.getTel(),
-				sellerdto.getBirth(),
-				sellerdto.getId(),
-				Integer.toString(sellerdto.getC_cash()),
-				Integer.toString(sellerdto.getN_cash()),
-				Integer.toString(sellerdto.getLv()),
-				sellerdto.getJoindate()};
+				sellerDTO.getName(),
+				sellerDTO.getTel(),
+				sellerDTO.getBirth(),
+				sellerDTO.getId(),
+				Integer.toString(sellerDTO.getC_cash()),
+				Integer.toString(sellerDTO.getN_cash()),
+				Integer.toString(sellerDTO.getLv()),
+				sellerDTO.getJoindate()};
 		jp_up.setGridLayout(8, 2, 10, 10);
 		
 		for (int i=0;i<items.length;i++) {
@@ -59,11 +59,19 @@ public class Seller_Info_Frame extends Base_Frame {
 		jp_base.setLayout(null);
 		jp_base.add(jp_up);
 		jp_base.add(jp_down);
-		jp_up.setBounds(25, 10, 250, 350);
+		jp_up.setBounds(10, 10, 280, 350);
 		jp_down.setBounds(50, 370, 200, 30);
 		
 		this.setMainPanel(jp_base);
-		this.setVisible(true);
+		this.ButtonOn();
+		
+	}
+	
+	public void ButtonOn() {
+		if(cc.getUser().getLv()>4) {
+			bt_up.setEnabled(true);
+			bt_del.setEnabled(true);
+		}
 	}
 	
 }

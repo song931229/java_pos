@@ -2,13 +2,13 @@ package Controls;
 
 import java.sql.SQLException;
 
+import Buyer_GUI.*;
 import Seller_GUI.Seller_Info_Frame;
-import Seller_GUI.Seller_List_Frame;
-import Seller_GUI.Seller_Sign_Frame;
-import Server_DATA.SellerDTO;
+import Server_DATA.BuyerDTO;
 
 public class Buyer_Command {
 	private Command_Center cc;
+	
 	public void command(int butno) throws SQLException {
 		cc=Command_Center.getInstance();
 		switch(butno) {
@@ -17,23 +17,28 @@ public class Buyer_Command {
 			if (tel==null) {
 				break;
 			}
-			if (cc.sellerDAO.isNew(tel)==true) {
+			if (cc.buyerDAO.isNew(tel)==true) {
 				cc.popup("중복", "이미 등록된 전화번호 입니다.");
 				break;
 			}
-			cc.seller_sign_frame=new Seller_Sign_Frame(tel);
-			cc.seller_frame.setVisible(false);
+			cc.buyer_sign_frame=new Buyer_Sign_Frame(tel);
+			cc.buyer_frame.setVisible(false);
 			break;
 		case 2:
-			cc.seller_list_frame=new Seller_List_Frame();
-			cc.seller_frame.setVisible(false);
+			cc.buyer_list_frame=new Buyer_List_Frame();
+			cc.buyer_frame.setVisible(false);
 			break;
 		case 3:
-			cc.seller_frame.setVisible(false);
-			cc.seller_frame=null;
+			cc.buyer_frame.setVisible(false);
+			cc.buyer_frame=null;
 			cc.index_frame.setVisible(true);
 			break;
 		case 4:
+			if(cc.buyer_info_frame==null) {
+				cc.buyer_info_frame=new Buyer_Info_Frame(cc.buyer_list_frame.clicked_tel);
+			}else {
+				cc.popup(cc.buyer_info_frame,"경고","이미 정보창이 열려있습니다.");
+			}
 			break;
 		}
 	}
@@ -44,13 +49,11 @@ public class Buyer_Command {
 		case 1:
 			switch(butno) {
 			case 1:
-				String get_name=cc.seller_sign_frame.jtf_name.getText();
-				String get_tel=cc.seller_sign_frame.jtf_tel.getText();
-				String get_birth=cc.seller_sign_frame.jtf_birth.getText();
-				String get_id=cc.seller_sign_frame.jtf_id.getText();
-				char[] get_pw1_chars=cc.seller_sign_frame.jtf_pw1.getPassword();
-				char[] get_pw2_chars=cc.seller_sign_frame.jtf_pw2.getPassword();
-				int get_lv=Integer.parseInt(cc.seller_sign_frame.jtf_lv.getText());
+				String get_name=cc.buyer_sign_frame.jtf_name.getText();
+				String get_tel=cc.buyer_sign_frame.jtf_tel.getText();
+				String get_birth=cc.buyer_sign_frame.jtf_birth.getText();
+				char[] get_pw1_chars=cc.buyer_sign_frame.jtf_pw1.getPassword();
+				char[] get_pw2_chars=cc.buyer_sign_frame.jtf_pw2.getPassword();
 				
 				String get_pw1="";
 				for (int i=0; i<get_pw1_chars.length; i++) {
@@ -66,75 +69,73 @@ public class Buyer_Command {
 					cc.popup("비밀번호", "비밀번호가 일치하지 않습니다.");
 					break;
 				}
-				if (8<=get_lv) {
-					cc.popup("경고", "최고 권한은 6레벨입니다.");
-					break;
-				}else if (user_lv<=get_lv) {
-					cc.popup("경고", "권한("+cc.user.getLv()+")이상의 레벨을 부열할수 없습니다.");
-					break;
-				}
-				SellerDTO sellerDTO= new SellerDTO(get_name,get_tel,get_birth,get_id,get_pw1,get_lv);
-				int result = cc.sellerDAO.signSeller(sellerDTO);
+				
+				BuyerDTO BuyerDTO= new BuyerDTO(get_name,get_tel,get_birth,get_pw1);
+				int result = cc.buyerDAO.signBuyer(BuyerDTO);
 				if (result==1) {
 					cc.popup("성공", get_name+"님 을 등록하였습니다.");
 				}
-				cc.seller_sign_frame.setVisible(false);
-				cc.seller_sign_frame=null;
-				cc.seller_frame.setVisible(true);
+				cc.buyer_sign_frame.setVisible(false);
+				cc.buyer_sign_frame=null;
+				cc.buyer_frame.setVisible(true);
 				break;
 			case 2:
-				cc.seller_sign_frame.setVisible(false);
-				cc.seller_sign_frame=null;
-				cc.seller_frame.setVisible(true);
+				cc.buyer_sign_frame.setVisible(false);
+				cc.buyer_sign_frame=null;
+				cc.buyer_frame.setVisible(true);
 				break;
 			}
 			break;
 		case 2:
 			switch(butno) {
 			case 1:
-				if (cc.seller_list_frame.current_page>1) {
-					cc.seller_list_frame.current_page-=1;
-					cc.seller_list_frame.shows();
+				if (cc.buyer_list_frame.current_page>1) {
+					cc.buyer_list_frame.current_page-=1;
+					cc.buyer_list_frame.shows();
 				}
 				break;
 			case 2:
-				cc.seller_list_frame.current_page=Integer.parseInt(cc.seller_list_frame.bp1.buts[1].getText());
-				cc.seller_list_frame.shows();
+				cc.buyer_list_frame.current_page=Integer.parseInt(cc.buyer_list_frame.bp1.buts[1].getText());
+				cc.buyer_list_frame.shows();
 				break;
 			case 3:
-				cc.seller_list_frame.current_page=Integer.parseInt(cc.seller_list_frame.bp1.buts[2].getText());
-				cc.seller_list_frame.shows();
+				cc.buyer_list_frame.current_page=Integer.parseInt(cc.buyer_list_frame.bp1.buts[2].getText());
+				cc.buyer_list_frame.shows();
 				break;
 			case 4:
-				cc.seller_list_frame.current_page=Integer.parseInt(cc.seller_list_frame.bp1.buts[3].getText());
-				cc.seller_list_frame.shows();
+				cc.buyer_list_frame.current_page=Integer.parseInt(cc.buyer_list_frame.bp1.buts[3].getText());
+				cc.buyer_list_frame.shows();
 				break;
 			case 5:
-				if (cc.seller_list_frame.current_page<cc.seller_list_frame.endpage) {
-					cc.seller_list_frame.current_page+=1;
-					cc.seller_list_frame.shows();
+				if (cc.buyer_list_frame.current_page<cc.buyer_list_frame.endpage) {
+					cc.buyer_list_frame.current_page+=1;
+					cc.buyer_list_frame.shows();
 				}
 				break;
 			case 6:
-				cc.seller_list_frame.current_page=1;
-				String[] search= {"name","tel","birth","id","lv","joindate"};
-				int index=cc.seller_list_frame.sbar.searchcom.getSelectedIndex();
-				cc.seller_list_frame.search=search[index];
-				cc.seller_list_frame.searchvalue=cc.seller_list_frame.sbar.searchvalue.getText();
-				cc.seller_list_frame.shows();
+				if(cc.buyer_list_frame.sbar.searchvalue.getText().equals("")) {
+					cc.popup("유효성", "검색값을 입력해 주세요.");
+					break;
+				}
+				String[] search= {"name","tel","birth","lv","joindate"};
+				int index=cc.buyer_list_frame.sbar.searchcom.getSelectedIndex();
+				cc.buyer_list_frame.search=search[index];
+				cc.buyer_list_frame.current_page=1;
+				cc.buyer_list_frame.searchvalue=cc.buyer_list_frame.sbar.searchvalue.getText();
+				cc.buyer_list_frame.shows();
 				break;
 			case 7:
-				cc.seller_list_frame.current_page=1;
-				cc.seller_list_frame.sbar.searchcom.setSelectedIndex(0);
-				cc.seller_list_frame.sbar.searchvalue.setText("");
-				cc.seller_list_frame.search=null;
-				cc.seller_list_frame.searchvalue=null;
-				cc.seller_list_frame.shows();
+				cc.buyer_list_frame.current_page=1;
+				cc.buyer_list_frame.sbar.searchcom.setSelectedIndex(0);
+				cc.buyer_list_frame.sbar.searchvalue.setText("");
+				cc.buyer_list_frame.search=null;
+				cc.buyer_list_frame.searchvalue=null;
+				cc.buyer_list_frame.shows();
 				break;
 			case 8:
-				cc.seller_list_frame.setVisible(false);
-				cc.seller_list_frame=null;
-				cc.seller_frame.setVisible(true);
+				cc.buyer_list_frame.setVisible(false);
+				cc.buyer_list_frame=null;
+				cc.buyer_frame.setVisible(true);
 				break;
 			}
 			break;
@@ -145,8 +146,8 @@ public class Buyer_Command {
 			case 2:
 				break;
 			case 3:
-				cc.seller_info_frame.setVisible(false);
-				cc.seller_info_frame=null;
+				cc.buyer_info_frame.setVisible(false);
+				cc.buyer_info_frame=null;
 				break;
 			}
 		}

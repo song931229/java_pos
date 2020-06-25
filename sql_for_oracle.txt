@@ -8,25 +8,26 @@ create table seller(
 c_cash number,
 n_cash number,
 6 lv number,
-7 joindate varchar(20));
+7 joindate varchar2(20));
 
 create table buyer(
 bno number primary key,
 name varchar2(10),
 tel varchar2(20) unique,
-birth varchar(10),
+birth varchar2(10),
+pw varchar2(10),
 point number,
 lv number,
-joindate varchar(20));
+joindate varchar2(20));
 
 create table product(
 pno number primary key,
 name varchar2(20) unique,
-company varchar(10),
+company varchar2(10),
 orderprice number,
 sellprice number,
 pqty number,
-barcode varchar(20) unique);
+barcode varchar2(20) unique);
 
 create table sell_log(
 sellno number primary key,
@@ -35,7 +36,7 @@ pno number,
 pqty number,
 price number,
 bno number,
-selldate char(20));
+selldate varchar2(20));
 
 create table buy_log(
 buyno number primary key,
@@ -43,7 +44,7 @@ sno number,
 pno number,
 pqty number,
 price number,
-orderdate char(20));
+orderdate varchar2(20));
 
 
 select id from seller where id='admin'

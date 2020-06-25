@@ -11,8 +11,7 @@ public class SellerDTO {
 	private int n_cash;
 	private int lv=1;
 	private String joindate;
-	public SellerDTO() {
-	}
+	public SellerDTO() {}
 	
 	public SellerDTO(String name, String tel, String birth,String id, String pw, int lv) {
 		this.name = name;

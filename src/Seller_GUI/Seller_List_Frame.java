@@ -75,9 +75,11 @@ public class Seller_List_Frame extends Base_Frame {
 		if (total_counts%pagesize!=0) {
 			endpage+=1;
 		}
+		System.out.println("여기는온다");
 		if (current_page>endpage) {
-			return;
+			current_page=1;
 		}
+		System.out.println("여기는안온다");
 		int start=current_page*pagesize-(pagesize-1);
 		int end=current_page*pagesize;
 		if (end>total_counts) {
@@ -96,7 +98,6 @@ public class Seller_List_Frame extends Base_Frame {
 			seller_lsit=
 					cc.sellerDAO.searched_list_seller(search, searchvalue, start, end);
 		}
-		
 		Iterator<SellerDTO> it = seller_lsit.iterator();
 		DefaultTableModel m=new DefaultTableModel(Data,ColName) {
 			public boolean isCellEditable(int row, int column) {

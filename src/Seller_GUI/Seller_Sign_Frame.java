@@ -41,6 +41,7 @@ public class Seller_Sign_Frame extends Base_Frame {
 		
 		
 		jp_up.setGridLayout(7, 2, 10, 10);
+		
 		jp_up.add(lb_name);
 		jp_up.add(jtf_name);
 		

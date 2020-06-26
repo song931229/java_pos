@@ -72,6 +72,8 @@ public class Buyer_List_Frame extends Base_Frame  {
 	}
 	
 	public void shows() throws SQLException {
+		clicked_tel=null;
+		clicked_row=-1;
 		if (search==null&&searchvalue==null) {
 			total_counts=cc.buyerDAO.counts_buyer();
 		}else {

@@ -45,7 +45,7 @@ public class Seller_Command {
 	public void subcommand(int subframe, int butno) throws SQLException {
 		cc=Command_Center.getInstance();
 		switch(subframe) {
-		case 1:
+		case 1://등록
 			switch(butno) {
 			case 1:
 				String get_name=cc.seller_sign_frame.jtf_name.getText();
@@ -77,7 +77,8 @@ public class Seller_Command {
 					cc.popup("경고", "권한("+cc.user.getLv()+")이상의 레벨을 부열할수 없습니다.");
 					break;
 				}
-				SellerDTO sellerDTO= new SellerDTO(get_name,get_tel,get_birth,get_id,get_pw1,get_lv);
+				SellerDTO sellerDTO= new SellerDTO(get_name,get_tel,get_birth,get_id,get_pw1);
+				sellerDTO.setLv(get_lv);
 				int result = cc.sellerDAO.signSeller(sellerDTO);
 				if (result==1) {
 					cc.popup("성공", get_name+"님 을 등록하였습니다.");
@@ -93,7 +94,7 @@ public class Seller_Command {
 				break;
 			}
 			break;
-		case 2:
+		case 2://목록
 			switch(butno) {
 			case 1:
 				if (cc.seller_list_frame.current_page>1) {
@@ -147,7 +148,7 @@ public class Seller_Command {
 				break;
 			}
 			break;
-		case 4:
+		case 4://인포
 			switch(butno) {
 			case 1:
 				cc.seller_info_frame.setVisible(false);
@@ -205,8 +206,9 @@ public class Seller_Command {
 				if (getpw==null) {
 					break;
 				}
-				if(getpw.equals("")) {
-					cc.popup("경고", "값을 입력해주세요.");
+				if (getpw.equals("")) {
+					cc.popup("경고", "값을 입력하셔야합니다.");
+					break;
 				}
 				int result= cc.sellerDAO.isCollect(cc.user.getId(), getpw);
 				if (result==1) {

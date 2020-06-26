@@ -66,6 +66,9 @@ public class Seller_List_Frame extends Base_Frame {
 	}
 	
 	public void shows() throws SQLException {
+		clicked_id=null;
+		clicked_row=-1;
+		
 		if (search==null&&searchvalue==null) {
 			total_counts=cc.sellerDAO.counts_seller();
 		}else {

@@ -34,6 +34,7 @@ public class ProductDAO extends BaseDAO {
 			ps.setString(2,productDTO.getCompany());
 			ps.setInt(3,productDTO.getOrderprice());
 			ps.setInt(4,productDTO.getSellprice());
+			ps.setString(5, productDTO.getBarcode());
 			return ps.executeUpdate();
 		}finally {
 			if (ps != null) ps.close();
@@ -138,7 +139,7 @@ public class ProductDAO extends BaseDAO {
 	
 	public ProductDTO infoProduct(String typed_barcode) throws SQLException {
 		// 로그인 후 ID값에 맞는 Seller객체 반환
-		String sql = "select * from product where typed_barcode=?";
+		String sql = "select * from product where barcode=?";
 		try {
 			con = DriverManager.getConnection(url, user, pass);
 			ps = con.prepareStatement(sql);
@@ -146,15 +147,14 @@ public class ProductDAO extends BaseDAO {
 			rs = ps.executeQuery();
 			ProductDTO productDTO=new ProductDTO();
 			if(rs.next()) {
-				int pno=rs.getInt("pno");
-				String name = rs.getString("name");
-				String company = rs.getString("company");
-				int orderprice = rs.getInt("orderprice");
-				int sellprice = rs.getInt("sellprice");
-				int pqty = rs.getInt("pqty");
-				String barcode=rs.getString("barcode");
-				productDTO.setPno(pno);
-				productDTO.setPqty(pqty);
+				System.out.println("세터작동");
+				productDTO.setPno(rs.getInt("pno"));
+				productDTO.setName(rs.getString("name"));
+				productDTO.setCompany(rs.getString("company"));
+				productDTO.setOrderprice(rs.getInt("orderprice"));
+				productDTO.setSellprice(rs.getInt("sellprice"));
+				productDTO.setPqty(rs.getInt("pqty"));
+				productDTO.setBarcode(rs.getString("barcode"));
 			}
 			return productDTO;
 		}finally {
@@ -164,14 +164,16 @@ public class ProductDAO extends BaseDAO {
 		}
 	}
 	
-	public int update_poduct(ProductDTO updateDTO) throws SQLException {
+	public int update_product(ProductDTO updateDTO) throws SQLException {
 		// TODO Auto-generated method stub
-		String sql="update product set tel=?,lv=? where pno=?";
+		String sql="update product set sellprice=?,orderprice=?,pqty=? where pno=?";
 		try {
 			con = DriverManager.getConnection(url, user, pass);
 			ps = con.prepareStatement(sql);
-			ps.setInt(1,updateDTO.getPqty());
-			ps.setInt(2,updateDTO.getSellprice());
+			ps.setInt(1,updateDTO.getSellprice());
+			ps.setInt(2,updateDTO.getOrderprice());
+			ps.setInt(3,updateDTO.getPqty());
+			ps.setInt(4,updateDTO.getPno());
 			return ps.executeUpdate();
 		}finally {
 			if (ps != null) ps.close();
@@ -179,13 +181,13 @@ public class ProductDAO extends BaseDAO {
 		}
 	}
 
-	public int delete_Seller(String barcode) throws SQLException {
+	public int delete_Product(int pno) throws SQLException {
 		// TODO Auto-generated method stub
-		String sql="delete from product where id=?";
+		String sql="delete from product where pno=?";
 		try {
 			con = DriverManager.getConnection(url, user, pass);
 			ps = con.prepareStatement(sql);
-			ps.setString(1,barcode);
+			ps.setInt(1,pno);
 			return ps.executeUpdate();
 		}finally {
 			if (ps != null) ps.close();

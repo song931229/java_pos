@@ -6,7 +6,7 @@ public class BuyerDTO {
 	private String tel;
 	private String birth;
 	private String pw;
-	private int point;
+	private int point=0;
 	private int lv=1;
 	private String joindate;
 	
@@ -17,22 +17,18 @@ public class BuyerDTO {
 		this.tel = tel;
 		this.birth = birth;
 		this.pw=pw;
-		this.point=point;
 		java.util.Date date = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		this.joindate = sdf.format(date);
 	}
 	
-	public BuyerDTO(int bno, String name, String tel, String birth, int point) {
+	public BuyerDTO(int bno, String name, String tel, String birth, int point, int lv) {
 		this.bno=bno;
 		this.name = name;
 		this.tel = tel;
 		this.birth = birth;
-		this.pw=pw;
 		this.point=point;
-		java.util.Date date = new java.util.Date();
-		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		this.joindate = sdf.format(date);
+		this.lv=lv;
 	}
 
 	public int getBno() {

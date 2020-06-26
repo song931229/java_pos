@@ -79,15 +79,15 @@ public class BuyerDAO extends BaseDAO {
 			ps.setInt(2,end);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				int bno=rs.getInt("bno");
-				String name = rs.getString("name");
-				String tel = rs.getString("tel");
-				String birth = rs.getString("birth");
-				int point = rs.getInt("point");
-				int lv = rs.getInt("lv");
-				BuyerDTO view = new BuyerDTO(bno,name,tel,birth,point);
+				BuyerDTO view = new BuyerDTO(
+						rs.getInt("bno"),
+						rs.getString("name"),
+						rs.getString("tel"),
+						rs.getString("birth"),
+						rs.getInt("point"),
+						rs.getInt("lv"));
+				
 				view.setJoindate(rs.getString("joindate"));
-				view.setLv(rs.getInt("lv"));
 				list.add(view);
 			}
 			return list;
@@ -111,15 +111,15 @@ public class BuyerDAO extends BaseDAO {
 			ps.setInt(3,end);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				int bno=rs.getInt("bno");
-				String name = rs.getString("name");
-				String tel = rs.getString("tel");
-				String birth = rs.getString("birth");
-				int point = rs.getInt("point");
-				int lv = rs.getInt("lv");
-				BuyerDTO view = new BuyerDTO(bno,name,tel,birth,point);
+				BuyerDTO view = new BuyerDTO(
+						rs.getInt("bno"),
+						rs.getString("name"),
+						rs.getString("tel"),
+						rs.getString("birth"),
+						rs.getInt("point"),
+						rs.getInt("lv"));
+				
 				view.setJoindate(rs.getString("joindate"));
-				view.setLv(rs.getInt("lv"));
 				list.add(view);
 			}
 			return list;
@@ -163,7 +163,7 @@ public class BuyerDAO extends BaseDAO {
 	}
 	
 	public BuyerDTO infoBuyer(String typed_tel) throws SQLException {
-		// 로그인 후 ID값에 맞는 Seller객체 반환
+		// 로그인 후 TEL값에 맞는 buyer객체 반환
 		String sql = "select * from buyer where tel=?";
 		try {
 			con = DriverManager.getConnection(url, user, pass);
@@ -172,6 +172,7 @@ public class BuyerDAO extends BaseDAO {
 			rs = ps.executeQuery();
 			BuyerDTO buyerDTO=new BuyerDTO();
 			if(rs.next()) {
+				buyerDTO.setBno(rs.getInt("bno"));
 				buyerDTO.setName(rs.getString("name"));
 				buyerDTO.setTel(rs.getString("tel"));
 				buyerDTO.setBirth(rs.getString("birth"));
@@ -189,12 +190,14 @@ public class BuyerDAO extends BaseDAO {
 	
 	public int update_Buyer(BuyerDTO updateDTO) throws SQLException {
 		// TODO Auto-generated method stub
+		System.out.println(updateDTO.getBno());
 		String sql="update buyer set tel=?,lv=? where bno=?";
 		try {
 			con = DriverManager.getConnection(url, user, pass);
 			ps = con.prepareStatement(sql);
 			ps.setString(1,updateDTO.getTel());
 			ps.setInt(2,updateDTO.getLv());
+			ps.setInt(3,updateDTO.getBno());
 			return ps.executeUpdate();
 		}finally {
 			if (ps != null) ps.close();
@@ -202,13 +205,13 @@ public class BuyerDAO extends BaseDAO {
 		}
 	}
 
-	public int delete_Seller(String tel) throws SQLException {
+	public int delete_Buyer(int bno) throws SQLException {
 		// TODO Auto-generated method stub
-		String sql="delete from buyer where tel=?";
+		String sql="delete from buyer where bno=?";
 		try {
 			con = DriverManager.getConnection(url, user, pass);
 			ps = con.prepareStatement(sql);
-			ps.setString(1,tel);
+			ps.setInt(1,bno);
 			return ps.executeUpdate();
 		}finally {
 			if (ps != null) ps.close();

@@ -258,6 +258,7 @@ public class SellerDAO extends BaseDAO {
 			rs = ps.executeQuery();
 			SellerDTO sellerDTO=new SellerDTO();
 			if(rs.next()) {
+				sellerDTO.setSno(rs.getInt("sno"));
 				sellerDTO.setName(rs.getString("name"));
 				sellerDTO.setTel(rs.getString("tel"));
 				sellerDTO.setBirth(rs.getString("birth"));

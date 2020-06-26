@@ -20,28 +20,24 @@ public class Buyer_Update_Frame extends Base_Frame {
 	JLabel lb_name = new JLabel("이름",JLabel.CENTER);
 	JLabel lb_tel = new JLabel("전화",JLabel.CENTER);
 	JLabel lb_birth = new JLabel("생년",JLabel.CENTER);
-	JLabel lb_id = new JLabel("ID",JLabel.CENTER);
-	JLabel lb_ccash = new JLabel("c_cash",JLabel.CENTER);
-	JLabel lb_ncash = new JLabel("n_cash",JLabel.CENTER);
-	JLabel lb_lv = new JLabel("Level",JLabel.CENTER);
+	JLabel lb_point= new JLabel("Point",JLabel.CENTER);
+	JLabel lb_lv = new JLabel("등급",JLabel.CENTER);
 	
 	public JTextField jtf_name= new JTextField();
 	public NumberField jtf_tel= new NumberField();
 	public NumberField jtf_birth= new NumberField();
-	public NumberField jtf_ccash= new NumberField();
-	public NumberField jtf_ncash= new NumberField();
-	public JTextField jtf_id= new JTextField();
+	public NumberField jtf_point= new NumberField();
 	public NumberField jtf_lv= new NumberField();
 
-	MYButton bt_ok=new MYButton("수정",5,5,1);
-	MYButton bt_cc=new MYButton("취소",5,5,2);
+	MYButton bt_ok=new MYButton("수정",6,5,1);
+	MYButton bt_cc=new MYButton("취소",6,5,2);
 	
 	public Buyer_Update_Frame(BuyerDTO buyerDTO) {
-		super("고객 수정", 300, 430);
+		super("고객 정보 수정", 300, 350);
 		// TODO Auto-generated constructor stub
 		this.buyerDTO=buyerDTO;
 		
-		jp_up.setGridLayout(7, 2, 10, 10);
+		jp_up.setGridLayout(5, 2, 10, 10);
 		jp_up.add(lb_name);
 		jtf_name.setText(buyerDTO.getName());
 		jtf_name.setEditable(false);
@@ -56,19 +52,10 @@ public class Buyer_Update_Frame extends Base_Frame {
 		jtf_birth.setEditable(false);
 		jp_up.add(jtf_birth);
 		
-		jp_up.add(lb_id);
-		jtf_id.setText(buyerDTO.getId());
-		jtf_id.setEditable(false);
-		jp_up.add(jtf_id);
-		
-		jp_up.add(lb_ccash);
-		jtf_ccash.setText(Integer.toString(buyerDTO.getC_cash()));
-		jtf_ccash.setEditable(false);
-		jp_up.add(jtf_ccash);
-		
-		jp_up.add(lb_ncash);
-		jtf_ncash.setText(Integer.toString(buyerDTO.getN_cash()));
-		jp_up.add(jtf_ncash);
+		jp_up.add(lb_point);
+		jtf_point.setText(Integer.toString(buyerDTO.getPoint()));
+		jtf_point.setEditable(false);
+		jp_up.add(jtf_point);
 		
 		jp_up.add(lb_lv);
 		jtf_lv.setText(Integer.toString(buyerDTO.getLv()));
@@ -82,8 +69,8 @@ public class Buyer_Update_Frame extends Base_Frame {
 		jp_base.setLayout(null);
 		jp_base.add(jp_up);
 		jp_base.add(jp_down);
-		jp_up.setBounds(10, 10, 240, 330);
-		jp_down.setBounds(70, 350, 150, 30);
+		jp_up.setBounds(10, 10, 240, 240);
+		jp_down.setBounds(70, 260, 150, 30);
 		
 		this.setMainPanel(jp_base);
 		this.setVisible(true);

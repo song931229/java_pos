@@ -29,7 +29,8 @@ public class PosDAO extends BaseDAO{
 	
 	public int create_admin() throws SQLException {
 		String sql = "insert into seller values(seq_seller.nextval,?,?,?,?,?,0,0,?,?)";
-		SellerDTO admin= new SellerDTO("admin","999-9999-9999","999999","admin","123",6);
+		SellerDTO admin= new SellerDTO("admin","999-9999-9999","999999","admin","123");
+		admin.setLv(6);
 		try {
 			con = DriverManager.getConnection(url, user, pass);
 			ps = con.prepareStatement(sql);

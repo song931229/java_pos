@@ -37,10 +37,10 @@ public class Product_List_Frame extends Base_Frame {
 	private MYPanel list= new MYPanel();
 	
 	private String[] sbar_S= {"상품명","제조사","수량","바코드"};
-	public SearchBar sbar = new SearchBar(sbar_S,5,2);
+	public SearchBar sbar = new SearchBar(sbar_S,7,2);
 	
 	String[] bp_S= {"<","1","2","3",">"};
-	public Buts_Panel bp1= new Buts_Panel(5,5,2,bp_S,false);
+	public Buts_Panel bp1= new Buts_Panel(5,7,2,bp_S,false);
 	public Product_List_Frame() throws SQLException {
 		super("상품 목록", 800, 500);
 		// TODO Auto-generated constructor stub
@@ -103,13 +103,13 @@ public class Product_List_Frame extends Base_Frame {
 			public boolean isCellEditable(int row, int column) {
 				if (clicked_row==row) {
 					try {
-						cc.command(6, 0, 4);
+						cc.command(7, 0, 4);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}else {
-					clicked_barcode=(String) this.getValueAt(row, 1);
+					clicked_barcode=(String) this.getValueAt(row, 5);
 					clicked_row=row;
 				}
 				return false;//This causes all cells to be not editable

@@ -22,12 +22,12 @@ public class Product_Info_Frame extends Base_Frame {
 	JLabel[] lbs_r=new JLabel[items.length];
 
 
-	MYButton bt_up=new MYButton("수정",6,4,1);
-	MYButton bt_del=new MYButton("삭제",6,4,2);
-	MYButton bt_cc=new MYButton("닫기",6,4,3);
+	MYButton bt_up=new MYButton("수정",7,4,1);
+	MYButton bt_del=new MYButton("삭제",7,4,2);
+	MYButton bt_cc=new MYButton("닫기",7,4,3);
 
 	public Product_Info_Frame(String barcode) throws SQLException {
-		super("상품 정보", 300, 360);
+		super("상품 정보", 300, 410);
 		productDTO=cc.productDAO.infoProduct(barcode);
 		// TODO Auto-generated constructor stub
 		String[] values={
@@ -55,8 +55,8 @@ public class Product_Info_Frame extends Base_Frame {
 		jp_base.setLayout(null);
 		jp_base.add(jp_up);
 		jp_base.add(jp_down);
-		jp_up.setBounds(10, 10, 280, 260);
-		jp_down.setBounds(50, 280, 200, 30);
+		jp_up.setBounds(10, 10, 280, 310);
+		jp_down.setBounds(50, 330, 200, 30);
 		
 		this.setMainPanel(jp_base);
 	}

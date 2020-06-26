@@ -7,27 +7,24 @@ public class SellerDTO {
 	private String birth;
 	private String id;
 	private String pw;
-	private int c_cash;
-	private int n_cash;
+	private int c_cash=0;
+	private int n_cash=0;
 	private int lv=1;
 	private String joindate;
 	public SellerDTO() {}
 	
-	public SellerDTO(String name, String tel, String birth,String id, String pw, int lv) {
+	public SellerDTO(String name, String tel, String birth,String id, String pw) {
 		this.name = name;
 		this.tel = tel;
 		this.birth=birth;
 		this.id = id;
 		this.pw=pw;
-		this.c_cash=0;
-		this.n_cash=0;
-		this.lv=lv;
 		java.util.Date date = new java.util.Date();
 		java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		this.joindate = sdf.format(date);
 	}
 	
-	public SellerDTO(int sno,String name, String tel, String birth,String id, int c_cash, int n_cash) {
+	public SellerDTO(int sno, String name, String tel, String birth,String id, int c_cash, int n_cash) {
 		this.sno=sno;
 		this.name = name;
 		this.tel = tel;

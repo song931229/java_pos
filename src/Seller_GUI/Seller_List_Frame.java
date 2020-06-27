@@ -15,7 +15,7 @@ import Pannel.*;
 import Server_DATA.*;
 
 public class Seller_List_Frame extends Base_Frame {
-	// 프레임번호 5-2
+	//프레임번호 5-2
 	private Command_Center cc=Command_Center.getInstance();
 	public String search;
 	public String searchvalue;
@@ -144,10 +144,10 @@ public class Seller_List_Frame extends Base_Frame {
 		int b=Integer.parseInt(bp1.buts[2].getText());
 		int c=Integer.parseInt(bp1.buts[3].getText());
 		//여기에 and조건을 추가하여 lv에따른 활성화가능.
-		if (current_page!=1) {
+		if (current_page>1) {
 			bp1.buts[0].setEnabled(true);
 		}
-		if (current_page!=endpage) {
+		if (current_page<endpage) {
 			bp1.buts[4].setEnabled(true);
 		}
 		

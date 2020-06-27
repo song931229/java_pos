@@ -12,7 +12,7 @@ public class Buyer_Command {
 	private Command_Center cc;
 	
 	public void command(int butno) throws SQLException {
-		cc=Command_Center.getInstance();
+		cc=Command_Center.getInstance();;
 		switch(butno) {
 		case 1://6-0-1
 			String tel=cc.diup("중복확인", "전화번호를 입력해 주세요.");

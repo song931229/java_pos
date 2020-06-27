@@ -2,14 +2,37 @@ package Controls;
 import java.awt.Frame;
 import java.sql.SQLException;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-import Buyer_GUI.*;
-import Index_GUI.*;
-import Login_GUI.*;
-import Product_GUI.*;
-import Seller_GUI.*;
-import Server_DATA.*;
+import Buyer_GUI.Buyer_Frame;
+import Buyer_GUI.Buyer_Info_Frame;
+import Buyer_GUI.Buyer_List_Frame;
+import Buyer_GUI.Buyer_Sign_Frame;
+import Buyer_GUI.Buyer_Update_Frame;
+import Index_GUI.Index_Frame;
+import Login_GUI.Change_Pw_Frame;
+import Login_GUI.Find_Id_Frame;
+import Login_GUI.Find_Pw_Frame;
+import Login_GUI.Login_Frame;
+import Ordering_GUI.Ordering_Add_Frame;
+import Ordering_GUI.Ordering_Frame;
+import Ordering_GUI.Ordering_List_Frame;
+import Ordering_GUI.Ordering_Log_Frame;
+import Product_GUI.Product_Frame;
+import Product_GUI.Product_Info_Frame;
+import Product_GUI.Product_List_Frame;
+import Product_GUI.Product_Sign_Frame;
+import Product_GUI.Product_Update_Frame;
+import Seller_GUI.Seller_Frame;
+import Seller_GUI.Seller_Info_Frame;
+import Seller_GUI.Seller_List_Frame;
+import Seller_GUI.Seller_Sign_Frame;
+import Seller_GUI.Seller_Update_Frame;
+import Server_DATA.BuyerDAO;
+import Server_DATA.ProductDAO;
+import Server_DATA.SellerDAO;
+import Server_DATA.SellerDTO;
 
 public class Command_Center {
 	
@@ -22,9 +45,16 @@ public class Command_Center {
 	protected Find_Pw_Frame find_pw_frame;
 	protected Change_Pw_Frame change_pw_frame;
 	//2 로그아웃 버튼
+	//--
 	
 	//3 물품 구매 프레임
+	
+	
 	//4 물품 판매 프레임
+	protected Ordering_Frame ordering_frame;
+	protected Ordering_List_Frame ordering_list_frame;
+	protected Ordering_Add_Frame ordering_add_frame;
+	protected Ordering_Log_Frame ordering_log_frame;
 	
 	//5 직원 관리 프레임
 	protected Seller_Frame seller_frame;
@@ -51,6 +81,10 @@ public class Command_Center {
 	public ProductDAO productDAO=new ProductDAO();
 	
 	protected Login_Command login_command=new Login_Command();
+	
+	protected Selling_Command selling_command=new Selling_Command();
+	protected Ordering_Command ordering_command=new Ordering_Command();
+	
 	protected Seller_Command seller_command=new Seller_Command();
 	protected Buyer_Command buyer_command=new Buyer_Command();
 	protected Product_Command product_command=new Product_Command();
@@ -105,7 +139,6 @@ public class Command_Center {
 			}else {
 				System.out.println("0-?-?");
 			}
-			
 			break;
 		case 1:
 			if(subframe==0) {
@@ -118,7 +151,11 @@ public class Command_Center {
 			System.out.println("상품판매 커맨드");
 			break;
 		case 4:
-			System.out.println("상품주문 커맨드");
+			if(subframe==0) {
+				ordering_command.command(butno);
+			}else {
+				ordering_command.subcommand(subframe, butno);
+			}
 			break;
 		case 5:
 			if(subframe==0) {
@@ -163,7 +200,8 @@ public class Command_Center {
 			System.out.println("상품 판매 프레임");
 			break;
 		case 4:
-			System.out.println("상품 주문 프레임");
+			index_frame.setVisible(false);
+			ordering_frame = new Ordering_Frame();
 			break;
 		case 5:
 			index_frame.setVisible(false);

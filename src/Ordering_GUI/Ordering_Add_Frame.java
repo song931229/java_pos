@@ -1,4 +1,4 @@
-package Buyer_GUI;
+package Ordering_GUI;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -15,39 +15,38 @@ import Index_GUI.Base_Frame;
 import Pannel.Buts_Panel;
 import Pannel.MYPanel;
 import Pannel.SearchBar;
-import Server_DATA.BuyerDTO;
-import Server_DATA.SellerDTO;
+import Server_DATA.ProductDTO;
 
-public class Buyer_List_Frame extends Base_Frame  {
-	// 프레임번호 6-2
+public class Ordering_Add_Frame extends Base_Frame {
+	
 	private Command_Center cc=Command_Center.getInstance();
+	
 	public String search;
 	public String searchvalue;
 	public int clicked_row=-1;
-	public String clicked_tel;
+	public String clicked_barcode;
 	public int current_page=1;
 	private int pagesize=30;
 	public int endpage;
 	private int total_counts;
-	private String [] ColName = {"이름","전화","생년","포인트","Lv","가입일"};
-	String [][] Data ;
+	private String [] ColName = {"상품명","제조사","주문가","판매가","재고","바코드"};
+	private String [][] Data ;
 	
-	DefaultTableModel model = new DefaultTableModel(Data,ColName);
+	private JTable table = new JTable();
+	private MYPanel base= new MYPanel();
 	
-	JTable table = new JTable(model);
-	MYPanel base= new MYPanel();
+	private MYPanel list= new MYPanel();
 	
-	MYPanel list= new MYPanel();
-	
-	String[] sbar_S= {"이름","전화","생년","Lv","가입일"};
-	public SearchBar sbar = new SearchBar(sbar_S,6,2);
+	private String[] sbar_S= {"상품명","제조사","수량","바코드"};
+	public SearchBar sbar = new SearchBar(sbar_S,4,4);
 	
 	String[] bp_S= {"<","1","2","3",">"};
-	public Buts_Panel bp1= new Buts_Panel(5,6,2,bp_S,false);
-	
-	public Buyer_List_Frame() throws SQLException {
-		super("고객 목록", 800, 500);
+	public Buts_Panel bp1= new Buts_Panel(5,4,4,bp_S,false);
+
+	public Ordering_Add_Frame() throws SQLException {
+		super("주문추가", 600, 500);
 		// TODO Auto-generated constructor stub
+		
 		list.setBackground(Color.WHITE);
 		list.setBorderLayout();
 		table.getTableHeader().setFont(new Font("맑은고딕", Font.BOLD, 15));
@@ -65,19 +64,16 @@ public class Buyer_List_Frame extends Base_Frame  {
 		this.setMainPanel(base);;
 		this.setVisible(true);
 	}
-	
 	public void reset() throws SQLException {
 		this.current_page=1;
 		this.shows();
 	}
 	
 	public void shows() throws SQLException {
-		clicked_tel=null;
-		clicked_row=-1;
 		if (search==null&&searchvalue==null) {
-			total_counts=cc.buyerDAO.counts_buyer();
+			total_counts=cc.productDAO.counts_product();
 		}else {
-			total_counts=cc.buyerDAO.counts_searched_buyer(search, searchvalue);
+			total_counts=cc.productDAO.counts_searched_product(search, searchvalue);
 		}
 		endpage=total_counts/pagesize;
 		if (total_counts%pagesize!=0) {
@@ -97,40 +93,40 @@ public class Buyer_List_Frame extends Base_Frame  {
 		for(int i=1; i<4; i++) {
 			bp1.buts[i].setText(buts_con[i-1]);
 		}
-		ArrayList<BuyerDTO> buyer_lsit;
+		ArrayList<ProductDTO> product_lsit;
 		if (search==null&&searchvalue==null) {
-			 buyer_lsit=cc.buyerDAO.list_buyer(start,end);
+			 product_lsit=cc.productDAO.list_product(start,end);
 		}else {
-			buyer_lsit=
-					cc.buyerDAO.searched_list_buyer(search, searchvalue, start, end);
+			product_lsit=
+					cc.productDAO.searched_list_product(search, searchvalue, start, end);
 		}
 		
-		Iterator<BuyerDTO> it = buyer_lsit.iterator();
+		Iterator<ProductDTO> it = product_lsit.iterator();
 		DefaultTableModel m=new DefaultTableModel(Data,ColName) {
 			public boolean isCellEditable(int row, int column) {
 				if (clicked_row==row) {
 					try {
-						cc.command(6, 0, 4);
+						cc.command(7, 0, 4);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}else {
-					clicked_tel=(String) this.getValueAt(row, 1);
+					clicked_barcode=(String) this.getValueAt(row, 5);
 					clicked_row=row;
 				}
 				return false;//This causes all cells to be not editable
 				}
 			};
 		while (it.hasNext()) {
-			BuyerDTO buyerDTO=it.next();
+			ProductDTO productDTO=it.next();
 			m.addRow(new Object[]{
-					buyerDTO.getName(),
-					buyerDTO.getTel(),
-					buyerDTO.getBirth(),
-					buyerDTO.getPoint(),
-					buyerDTO.getLv(),
-					buyerDTO.getJoindate()
+					productDTO.getName(),
+					productDTO.getCompany(),
+					productDTO.getOrderprice(),
+					productDTO.getSellprice(),
+					productDTO.getPqty(),
+					productDTO.getBarcode()
 					});
 		}
 		table.setModel(m);
@@ -176,4 +172,5 @@ public class Buyer_List_Frame extends Base_Frame  {
 		}
 		
 	}
+	
 }

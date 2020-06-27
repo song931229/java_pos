@@ -1,10 +1,9 @@
-package Buyer_GUI;
+package Ordering_GUI;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,39 +13,35 @@ import Controls.Command_Center;
 import Index_GUI.Base_Frame;
 import Pannel.Buts_Panel;
 import Pannel.MYPanel;
-import Pannel.SearchBar;
-import Server_DATA.BuyerDTO;
-import Server_DATA.SellerDTO;
+import Server_DATA.ProductDTO;
 
-public class Buyer_List_Frame extends Base_Frame  {
-	// 프레임번호 6-2
+public class Ordering_List_Frame extends Base_Frame {
+	//3-1
 	private Command_Center cc=Command_Center.getInstance();
-	public String search;
-	public String searchvalue;
 	public int clicked_row=-1;
 	public String clicked_tel;
 	public int current_page=1;
 	private int pagesize=30;
-	public int endpage;
-	private int total_counts;
-	private String [] ColName = {"이름","전화","생년","포인트","Lv","가입일"};
-	String [][] Data ;
+	public int endpage=1;
+	private int total_counts=0;
+	private ArrayList<ProductDTO> products=new ArrayList<ProductDTO>();
 	
-	DefaultTableModel model = new DefaultTableModel(Data,ColName);
+	private String [] ColName = {"상품명","제조사","수량","단가","계"};
+	private String [][] Data ;
 	
-	JTable table = new JTable(model);
-	MYPanel base= new MYPanel();
+	private JTable table = new JTable();
+	private MYPanel base= new MYPanel();
 	
-	MYPanel list= new MYPanel();
+	private MYPanel list= new MYPanel();
 	
-	String[] sbar_S= {"이름","전화","생년","Lv","가입일"};
-	public SearchBar sbar = new SearchBar(sbar_S,6,2);
+	String[] bp_S0= {"추가","주문","초기화","종료"};
+	public Buts_Panel bp0= new Buts_Panel(4,4,1,bp_S0,true,6);
 	
 	String[] bp_S= {"<","1","2","3",">"};
-	public Buts_Panel bp1= new Buts_Panel(5,6,2,bp_S,false);
+	public Buts_Panel bp1= new Buts_Panel(5,4,1,bp_S,false);
 	
-	public Buyer_List_Frame() throws SQLException {
-		super("고객 목록", 800, 500);
+	public Ordering_List_Frame() throws SQLException {
+		super("주문 목록", 800, 600);
 		// TODO Auto-generated constructor stub
 		list.setBackground(Color.WHITE);
 		list.setBorderLayout();
@@ -55,12 +50,13 @@ public class Buyer_List_Frame extends Base_Frame  {
 		
 		base.setLayout(null);
 		
-		base.add(sbar);
 		base.add(list);
+		base.add(bp0);
 		base.add(bp1);
-		list.setBounds(25, 40, 750, 380);
-		bp1.setBounds(275,430, 250,30);
-		sbar.setBounds(150, 10, 500, 30);
+		
+		list.setBounds(25,70, 750, 450);
+		bp0.setBounds(240,20, 320,30);
+		bp1.setBounds(275,530, 250,30);
 		this.reset();
 		this.setMainPanel(base);;
 		this.setVisible(true);
@@ -74,11 +70,7 @@ public class Buyer_List_Frame extends Base_Frame  {
 	public void shows() throws SQLException {
 		clicked_tel=null;
 		clicked_row=-1;
-		if (search==null&&searchvalue==null) {
-			total_counts=cc.buyerDAO.counts_buyer();
-		}else {
-			total_counts=cc.buyerDAO.counts_searched_buyer(search, searchvalue);
-		}
+
 		endpage=total_counts/pagesize;
 		if (total_counts%pagesize!=0) {
 			endpage+=1;
@@ -97,42 +89,8 @@ public class Buyer_List_Frame extends Base_Frame  {
 		for(int i=1; i<4; i++) {
 			bp1.buts[i].setText(buts_con[i-1]);
 		}
-		ArrayList<BuyerDTO> buyer_lsit;
-		if (search==null&&searchvalue==null) {
-			 buyer_lsit=cc.buyerDAO.list_buyer(start,end);
-		}else {
-			buyer_lsit=
-					cc.buyerDAO.searched_list_buyer(search, searchvalue, start, end);
-		}
-		
-		Iterator<BuyerDTO> it = buyer_lsit.iterator();
-		DefaultTableModel m=new DefaultTableModel(Data,ColName) {
-			public boolean isCellEditable(int row, int column) {
-				if (clicked_row==row) {
-					try {
-						cc.command(6, 0, 4);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}else {
-					clicked_tel=(String) this.getValueAt(row, 1);
-					clicked_row=row;
-				}
-				return false;//This causes all cells to be not editable
-				}
-			};
-		while (it.hasNext()) {
-			BuyerDTO buyerDTO=it.next();
-			m.addRow(new Object[]{
-					buyerDTO.getName(),
-					buyerDTO.getTel(),
-					buyerDTO.getBirth(),
-					buyerDTO.getPoint(),
-					buyerDTO.getLv(),
-					buyerDTO.getJoindate()
-					});
-		}
+
+		DefaultTableModel m=new DefaultTableModel(Data,ColName);
 		table.setModel(m);
 		this.ButtonOn();
 	}
@@ -176,4 +134,5 @@ public class Buyer_List_Frame extends Base_Frame  {
 		}
 		
 	}
+
 }

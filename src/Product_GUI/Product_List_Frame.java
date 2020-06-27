@@ -20,6 +20,7 @@ import Server_DATA.ProductDTO;
 public class Product_List_Frame extends Base_Frame {
 	// 프레임번호 7-2
 	private Command_Center cc=Command_Center.getInstance();
+	
 	public String search;
 	public String searchvalue;
 	public int clicked_row=-1;
@@ -28,7 +29,7 @@ public class Product_List_Frame extends Base_Frame {
 	private int pagesize=30;
 	public int endpage;
 	private int total_counts;
-	private String [] ColName = {"상품명","제조사","주문가","판매가","수량","바코드"};
+	private String [] ColName = {"상품명","제조사","주문가","판매가","재고","바코드"};
 	private String [][] Data ;
 	
 	private JTable table = new JTable();
@@ -36,11 +37,12 @@ public class Product_List_Frame extends Base_Frame {
 	
 	private MYPanel list= new MYPanel();
 	
-	private String[] sbar_S= {"상품명","제조사","수량","바코드"};
+	private String[] sbar_S= {"상품명","제조사","재고","바코드"};
 	public SearchBar sbar = new SearchBar(sbar_S,7,2);
 	
 	String[] bp_S= {"<","1","2","3",">"};
 	public Buts_Panel bp1= new Buts_Panel(5,7,2,bp_S,false);
+	
 	public Product_List_Frame() throws SQLException {
 		super("상품 목록", 800, 500);
 		// TODO Auto-generated constructor stub
@@ -139,10 +141,10 @@ public class Product_List_Frame extends Base_Frame {
 		int b=Integer.parseInt(bp1.buts[2].getText());
 		int c=Integer.parseInt(bp1.buts[3].getText());
 		//여기에 and조건을 추가하여 lv에따른 활성화가능.
-		if (current_page!=1) {
+		if (current_page>1) {
 			bp1.buts[0].setEnabled(true);
 		}
-		if (current_page!=endpage) {
+		if (current_page<endpage) {
 			bp1.buts[4].setEnabled(true);
 		}
 		

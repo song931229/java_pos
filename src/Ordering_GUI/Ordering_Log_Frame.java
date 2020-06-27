@@ -1,4 +1,4 @@
-package Buyer_GUI;
+package Ordering_GUI;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -15,38 +15,34 @@ import Index_GUI.Base_Frame;
 import Pannel.Buts_Panel;
 import Pannel.MYPanel;
 import Pannel.SearchBar;
-import Server_DATA.BuyerDTO;
 import Server_DATA.SellerDTO;
 
-public class Buyer_List_Frame extends Base_Frame  {
-	// 프레임번호 6-2
+public class Ordering_Log_Frame extends Base_Frame{
+	//프레임번호 4-2
 	private Command_Center cc=Command_Center.getInstance();
+	
 	public String search;
 	public String searchvalue;
-	public int clicked_row=-1;
-	public String clicked_tel;
 	public int current_page=1;
 	private int pagesize=30;
 	public int endpage;
 	private int total_counts;
-	private String [] ColName = {"이름","전화","생년","포인트","Lv","가입일"};
-	String [][] Data ;
+	private String [] ColName = {"이름","전화","생년","ID","cash_C","cash_N","Lv","가입일"};
+	private String [][] Data ;
 	
-	DefaultTableModel model = new DefaultTableModel(Data,ColName);
+	private JTable table = new JTable();
+	private MYPanel base= new MYPanel();
 	
-	JTable table = new JTable(model);
-	MYPanel base= new MYPanel();
+	private MYPanel list= new MYPanel();
 	
-	MYPanel list= new MYPanel();
-	
-	String[] sbar_S= {"이름","전화","생년","Lv","가입일"};
-	public SearchBar sbar = new SearchBar(sbar_S,6,2);
+	private String[] sbar_S= {"상품명","바코드","제조사","주문일"};
+	public SearchBar sbar = new SearchBar(sbar_S,5,2);
 	
 	String[] bp_S= {"<","1","2","3",">"};
-	public Buts_Panel bp1= new Buts_Panel(5,6,2,bp_S,false);
+	public Buts_Panel bp1= new Buts_Panel(5,5,2,bp_S,false);
 	
-	public Buyer_List_Frame() throws SQLException {
-		super("고객 목록", 800, 500);
+	public Ordering_Log_Frame() throws SQLException {
+		super("주문 기록", 800, 600);
 		// TODO Auto-generated constructor stub
 		list.setBackground(Color.WHITE);
 		list.setBorderLayout();
@@ -72,20 +68,21 @@ public class Buyer_List_Frame extends Base_Frame  {
 	}
 	
 	public void shows() throws SQLException {
-		clicked_tel=null;
-		clicked_row=-1;
+		
 		if (search==null&&searchvalue==null) {
-			total_counts=cc.buyerDAO.counts_buyer();
+			total_counts=cc.sellerDAO.counts_seller();
 		}else {
-			total_counts=cc.buyerDAO.counts_searched_buyer(search, searchvalue);
+			total_counts=cc.sellerDAO.counts_searched_seller(search, searchvalue);
 		}
 		endpage=total_counts/pagesize;
 		if (total_counts%pagesize!=0) {
 			endpage+=1;
 		}
+		System.out.println("여기는온다");
 		if (current_page>endpage) {
 			current_page=1;
 		}
+		System.out.println("여기는안온다");
 		int start=current_page*pagesize-(pagesize-1);
 		int end=current_page*pagesize;
 		if (end>total_counts) {
@@ -97,40 +94,42 @@ public class Buyer_List_Frame extends Base_Frame  {
 		for(int i=1; i<4; i++) {
 			bp1.buts[i].setText(buts_con[i-1]);
 		}
-		ArrayList<BuyerDTO> buyer_lsit;
+		ArrayList<SellerDTO> seller_lsit;
 		if (search==null&&searchvalue==null) {
-			 buyer_lsit=cc.buyerDAO.list_buyer(start,end);
+			 seller_lsit=cc.sellerDAO.list_seller(start,end);
 		}else {
-			buyer_lsit=
-					cc.buyerDAO.searched_list_buyer(search, searchvalue, start, end);
+			seller_lsit=
+					cc.sellerDAO.searched_list_seller(search, searchvalue, start, end);
 		}
-		
-		Iterator<BuyerDTO> it = buyer_lsit.iterator();
+		Iterator<SellerDTO> it = seller_lsit.iterator();
 		DefaultTableModel m=new DefaultTableModel(Data,ColName) {
-			public boolean isCellEditable(int row, int column) {
-				if (clicked_row==row) {
-					try {
-						cc.command(6, 0, 4);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}else {
-					clicked_tel=(String) this.getValueAt(row, 1);
-					clicked_row=row;
-				}
-				return false;//This causes all cells to be not editable
-				}
+//			public boolean isCellEditable(int row, int column)
+//			{
+//				if (clicked_row==row) {
+//					try {
+//						cc.command(5, 0, 4);
+//					} catch (SQLException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}else {
+//					clicked_id=(String) this.getValueAt(row, 3);
+//					clicked_row=row;
+//				}
+//				return false;//This causes all cells to be not editable
+//				}
 			};
 		while (it.hasNext()) {
-			BuyerDTO buyerDTO=it.next();
+			SellerDTO sellerDTO=it.next();
 			m.addRow(new Object[]{
-					buyerDTO.getName(),
-					buyerDTO.getTel(),
-					buyerDTO.getBirth(),
-					buyerDTO.getPoint(),
-					buyerDTO.getLv(),
-					buyerDTO.getJoindate()
+					sellerDTO.getName(),
+					sellerDTO.getTel(),
+					sellerDTO.getBirth(),
+					sellerDTO.getId(),
+					sellerDTO.getC_cash(),
+					sellerDTO.getN_cash(),
+					sellerDTO.getLv(),
+					sellerDTO.getJoindate()
 					});
 		}
 		table.setModel(m);
@@ -146,10 +145,10 @@ public class Buyer_List_Frame extends Base_Frame  {
 		int b=Integer.parseInt(bp1.buts[2].getText());
 		int c=Integer.parseInt(bp1.buts[3].getText());
 		//여기에 and조건을 추가하여 lv에따른 활성화가능.
-		if (current_page>1) {
+		if (current_page!=1) {
 			bp1.buts[0].setEnabled(true);
 		}
-		if (current_page<endpage) {
+		if (current_page!=endpage) {
 			bp1.buts[4].setEnabled(true);
 		}
 		
@@ -176,4 +175,5 @@ public class Buyer_List_Frame extends Base_Frame  {
 		}
 		
 	}
+
 }

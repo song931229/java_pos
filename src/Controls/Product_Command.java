@@ -100,7 +100,7 @@ public class Product_Command {
 				break;
 			case 6://7-2-6
 				cc.product_list_frame.current_page=1;
-				String[] search= {"name","tel","birth","id","lv","joindate"};
+				String[] search= {"name","company","orderprice","sellprice","pqty","barcode"};
 				int index=cc.product_list_frame.sbar.searchcom.getSelectedIndex();
 				cc.product_list_frame.search=search[index];
 				cc.product_list_frame.searchvalue=cc.product_list_frame.sbar.searchvalue.getText();

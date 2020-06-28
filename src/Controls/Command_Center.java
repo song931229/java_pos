@@ -19,6 +19,7 @@ import Ordering_GUI.Ordering_Add_Frame;
 import Ordering_GUI.Ordering_Frame;
 import Ordering_GUI.Ordering_List_Frame;
 import Ordering_GUI.Ordering_Log_Frame;
+import Ordering_GUI.Ordering_Popup_Frame;
 import Product_GUI.Product_Frame;
 import Product_GUI.Product_Info_Frame;
 import Product_GUI.Product_List_Frame;
@@ -55,6 +56,7 @@ public class Command_Center {
 	protected Ordering_List_Frame ordering_list_frame;
 	protected Ordering_Add_Frame ordering_add_frame;
 	protected Ordering_Log_Frame ordering_log_frame;
+	protected Ordering_Popup_Frame ordering_popup_frame;
 	
 	//5 직원 관리 프레임
 	protected Seller_Frame seller_frame;

@@ -62,7 +62,7 @@ public class Product_Update_Frame extends Base_Frame {
 		jp_up.add(jtf_pqty);
 		
 		jp_up.add(lb_barcode);
-		jtf_barcode.setText(Integer.toString(productDTO.getPqty()));
+		jtf_barcode.setText(productDTO.getBarcode());
 		jtf_barcode.setEditable(false);
 		jp_up.add(jtf_barcode);
 

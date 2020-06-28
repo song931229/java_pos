@@ -44,7 +44,7 @@ public class Ordering_Add_Frame extends Base_Frame {
 	public Buts_Panel bp1= new Buts_Panel(5,4,4,bp_S,false);
 
 	public Ordering_Add_Frame() throws SQLException {
-		super("주문추가", 600, 500);
+		super("주문추가", 800, 500);
 		// TODO Auto-generated constructor stub
 		
 		list.setBackground(Color.WHITE);
@@ -106,7 +106,7 @@ public class Ordering_Add_Frame extends Base_Frame {
 			public boolean isCellEditable(int row, int column) {
 				if (clicked_row==row) {
 					try {
-						cc.command(7, 0, 4);
+						cc.command(4, 4, 9);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

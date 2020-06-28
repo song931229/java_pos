@@ -24,9 +24,9 @@ public class Ordering_List_Frame extends Base_Frame {
 	private int pagesize=30;
 	public int endpage=1;
 	private int total_counts=0;
-	private ArrayList<ProductDTO> products=new ArrayList<ProductDTO>();
+	public ArrayList<ProductDTO> order_products=new ArrayList<ProductDTO>();
 	
-	private String [] ColName = {"상품명","제조사","수량","단가","계"};
+	private String [] ColName = {"상품명","제조사","주문 수량","단가","계"};
 	private String [][] Data ;
 	
 	private JTable table = new JTable();

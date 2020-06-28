@@ -147,7 +147,6 @@ public class ProductDAO extends BaseDAO {
 			rs = ps.executeQuery();
 			ProductDTO productDTO=new ProductDTO();
 			if(rs.next()) {
-				System.out.println("세터작동");
 				productDTO.setPno(rs.getInt("pno"));
 				productDTO.setName(rs.getString("name"));
 				productDTO.setCompany(rs.getString("company"));

@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -13,29 +15,33 @@ import Controls.Command_Center;
 import Index_GUI.Base_Frame;
 import Pannel.Buts_Panel;
 import Pannel.MYPanel;
+import Pannel.NumberField;
+import Pannel.ReadonlyField;
 import Server_DATA.ProductDTO;
 
 public class Ordering_List_Frame extends Base_Frame {
 	//3-1
 	private Command_Center cc=Command_Center.getInstance();
 	public int clicked_row=-1;
-	public String clicked_tel;
 	public int current_page=1;
 	private int pagesize=30;
 	public int endpage=1;
 	private int total_counts=0;
 	public ArrayList<ProductDTO> order_products=new ArrayList<ProductDTO>();
 	
-	private String [] ColName = {"상품명","제조사","주문 수량","단가","계"};
+	String[] bp_S0= {"추가","주문","초기화","종료"};
+	public Buts_Panel bp0= new Buts_Panel(4,4,1,bp_S0,true,6);
+	
+	JLabel total_price=new JLabel("합계");
+	ReadonlyField jtf_total_price= new ReadonlyField();
+	
+	private String [] ColName = {"상품명","제조사","바코드","단가","주문 수량","계"};
 	private String [][] Data ;
 	
 	private JTable table = new JTable();
 	private MYPanel base= new MYPanel();
 	
 	private MYPanel list= new MYPanel();
-	
-	String[] bp_S0= {"추가","주문","초기화","종료"};
-	public Buts_Panel bp0= new Buts_Panel(4,4,1,bp_S0,true,6);
 	
 	String[] bp_S= {"<","1","2","3",">"};
 	public Buts_Panel bp1= new Buts_Panel(5,4,1,bp_S,false);
@@ -53,10 +59,17 @@ public class Ordering_List_Frame extends Base_Frame {
 		base.add(list);
 		base.add(bp0);
 		base.add(bp1);
+		base.add(total_price);
+		total_price.setFont(total_price.getFont().deriveFont(15.0f));
+		base.add(jtf_total_price);
 		
 		list.setBounds(25,70, 750, 450);
 		bp0.setBounds(240,20, 320,30);
 		bp1.setBounds(275,530, 250,30);
+		
+		total_price.setBounds(600,20,40,30);
+		jtf_total_price.setBounds(645,20,130,30);
+		
 		this.reset();
 		this.setMainPanel(base);;
 		this.setVisible(true);
@@ -68,9 +81,8 @@ public class Ordering_List_Frame extends Base_Frame {
 	}
 	
 	public void shows() throws SQLException {
-		clicked_tel=null;
 		clicked_row=-1;
-
+		total_counts=order_products.size();
 		endpage=total_counts/pagesize;
 		if (total_counts%pagesize!=0) {
 			endpage+=1;
@@ -90,7 +102,34 @@ public class Ordering_List_Frame extends Base_Frame {
 			bp1.buts[i].setText(buts_con[i-1]);
 		}
 
-		DefaultTableModel m=new DefaultTableModel(Data,ColName);
+		Iterator<ProductDTO> it = order_products.iterator();
+
+		DefaultTableModel m=new DefaultTableModel(Data,ColName) {
+			public boolean isCellEditable(int row, int column) {
+				if (clicked_row==row) {
+					try {
+						cc.command(4, 1, 10);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}else {
+					clicked_row=row;
+				}
+				return false;//This causes all cells to be not editable
+				}
+			};
+			while (it.hasNext()) {
+				ProductDTO productDTO=it.next();
+				m.addRow(new Object[]{
+						productDTO.getName(),
+						productDTO.getCompany(),
+						productDTO.getBarcode(),
+						productDTO.getOrderprice(),
+						productDTO.getPqty(),
+						productDTO.getOrderprice()*productDTO.getPqty()
+						});
+			}
 		table.setModel(m);
 		this.ButtonOn();
 	}

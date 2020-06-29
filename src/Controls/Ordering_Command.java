@@ -7,6 +7,7 @@ import Ordering_GUI.Ordering_List_Frame;
 import Ordering_GUI.Ordering_Log_Frame;
 import Ordering_GUI.Ordering_Popup_Frame;
 import Product_GUI.Product_Info_Frame;
+import Server_DATA.ProductDTO;
 
 public class Ordering_Command {
 	private Command_Center cc;
@@ -90,19 +91,19 @@ public class Ordering_Command {
 				}
 				break;
 			case 2://4-4-2
-				cc.ordering_add_frame.current_page=Integer.parseInt(cc.product_list_frame.bp1.buts[1].getText());
+				cc.ordering_add_frame.current_page=Integer.parseInt(cc.ordering_add_frame.bp1.buts[1].getText());
 				cc.ordering_add_frame.shows();
 				break;
 			case 3://4-4-3
-				cc.ordering_add_frame.current_page=Integer.parseInt(cc.product_list_frame.bp1.buts[2].getText());
+				cc.ordering_add_frame.current_page=Integer.parseInt(cc.ordering_add_frame.bp1.buts[2].getText());
 				cc.ordering_add_frame.shows();
 				break;
 			case 4://4-4-4
-				cc.ordering_add_frame.current_page=Integer.parseInt(cc.product_list_frame.bp1.buts[3].getText());
+				cc.ordering_add_frame.current_page=Integer.parseInt(cc.ordering_add_frame.bp1.buts[3].getText());
 				cc.ordering_add_frame.shows();
 				break;
 			case 5://4-4-5
-				if (cc.ordering_add_frame.current_page<cc.product_list_frame.endpage) {
+				if (cc.ordering_add_frame.current_page<cc.ordering_add_frame.endpage) {
 					cc.ordering_add_frame.current_page+=1;
 					cc.ordering_add_frame.shows();
 				}
@@ -141,25 +142,31 @@ public class Ordering_Command {
 				break;
 			}
 			break;
-		case 5:
+		case 5://4-5
 			int count= Integer.parseInt(cc.ordering_popup_frame.jtf_count.getText());
 			switch(butno) {
-			case 1:
+			case 1://4-5-1
+				cc.ordering_popup_frame.addingProduct.setPqty(Integer.parseInt(cc.ordering_popup_frame.jtf_count.getText()));
+				ProductDTO order=cc.ordering_popup_frame.addingProduct;
+				cc.ordering_list_frame.order_products.add(order);
+				cc.ordering_popup_frame.setVisible(false);
+				cc.ordering_popup_frame=null;
+				cc.ordering_list_frame.shows();
+				cc.popup("상품추가", "상품을 추가하였습니다.");
 				break;
-			case 2:
+			case 2://4-5-2
 				cc.ordering_popup_frame.setVisible(false);
 				cc.ordering_popup_frame=null;
 				break;
-			case 3:
+			case 3://4-5-3
 				if(count>0) {
 					count-=1;
 					cc.ordering_popup_frame.jtf_count.setText(Integer.toString(count));
 					int totalprice = count*cc.ordering_popup_frame.orderprice;
 					cc.ordering_popup_frame.jtf_totalprice.setText(Integer.toString(totalprice));
 				}
-				
 				break;
-			case 4:
+			case 4://4-5-4
 				if(count<100) {
 					count+=1;
 					cc.ordering_popup_frame.jtf_count.setText(Integer.toString(count));
@@ -169,6 +176,17 @@ public class Ordering_Command {
 				break;
 			}
 			break;
+		case 6:
+			switch(butno) {
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4:
+				break;
+			}
 		}
 	}
 

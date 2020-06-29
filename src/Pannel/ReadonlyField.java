@@ -3,11 +3,11 @@ package Pannel;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class NumberField extends JTextField implements KeyListener {
- 
-	public NumberField() {
+public class ReadonlyField extends JTextField implements KeyListener {
+	
+	public ReadonlyField() {
 		this.addKeyListener(this);
-		this.setHorizontalAlignment(JTextField.CENTER);
+		this.setHorizontalAlignment(JTextField.RIGHT);
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -18,11 +18,7 @@ public class NumberField extends JTextField implements KeyListener {
 
 	public void keyTyped(KeyEvent e) {
 		// Get the current character you typed...
-		System.out.println("d");
-		char c = e.getKeyChar();
-		if (!Character.isDigit(c)) {
-			e.consume();
-			return;
-		}
+		e.consume();
+		return;
 	}
 }
